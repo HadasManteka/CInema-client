@@ -20,8 +20,42 @@ const updateMovie = async (user) => {
     return updatedMovie;
 };
 
+const getMoviesGroupedByYear = async () => {
+    return await Movie.aggregate([
+        {
+            $group: {
+                id: { year: "$release_date" },
+                movies: { $push: "$$ROOT" },
+                reviewsCount: { $sum: "$reviews.length" }
+            }
+        },
+        {
+            $sort: { "reviewsCount": -1 }
+        }
+    ]);
+};
+
+const getAverageReviewRatingsByMovie = async () => {
+    const mapFunction = function() {
+        this.reviews.forEach(review => {
+            emit(this._id, review.rating);
+        });
+    };
+
+    const reduceFunction = function(movieId, ratings) {
+        const sum = Array.sum(ratings);
+        return sum / ratings.length;
+    };
+
+    return await Movie.mapReduce(mapFunction, reduceFunction, {
+        out: { inline: 1 }
+    });
+};
+
 module.exports = {
     getMovies,
     getMovieById,
-    updateMovie
+    updateMovie,
+    getMoviesGroupedByYear,
+    getAverageReviewRatingsByMovie
 }

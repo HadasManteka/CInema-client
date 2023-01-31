@@ -11,6 +11,7 @@ app.listen(3000, () => {
 
 app.use('/', require('./routes/movies'));
 app.use('/', require('./routes/reviews'));
+app.use('/', require('./routes/users'));
 
 app.get('*', (req, res) => {
   res.statusCode = 404
