@@ -12,7 +12,7 @@ const getMovieById = async (id) => {
 };
 
 const updateMovie = async (user) => {
-    const filter = { _id: movie._id };
+    const filter = { _id: movie.id };
     const update = { ...movie };
     const updatedMovie = await Movie.findOneAndUpdate(filter, update, {
         new: true,

@@ -20,7 +20,7 @@ const getReviewByMovieId = async (movie_id) => {
 };
 
 const updateReview = async (user) => {
-    const filter = { _id: review._id };
+    const filter = { _id: review.id };
     const update = { ...review };
     const updatedReview = await Review.findOneAndUpdate(filter, update, {
         new: true,
