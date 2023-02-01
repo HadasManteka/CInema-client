@@ -1,31 +1,30 @@
-import "./Login.css";
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../context/UserContext';
+import './Register.css';
 import TextField from "@mui/material/TextField";
 import GoogleIcon from "../../../images/google.svg";
 import Box from "@mui/material/Box";
-import React, { useState, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
 import FilledInput from "@mui/material/FilledInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { AuthContext } from '../../context/UserContext';
 import { useHistory } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
+  const {createUser, signInWithGoogle} = useContext(AuthContext);
+  const history = useHistory();
+
   const [values, setValues] = useState({
     password: "",
     email:"",
+    name:"",
     showPassword: false,
   });
 
-  const history = useHistory();
-  const navigateHome = () => {
-    history.push("/");
-  };
-
-  const navigateRegister = () => {
-    history.push("/register");
+  const navigateLogin = () => {
+    history.push("/login");
   };
 
   const handleChange = (prop) => (event) => {
@@ -43,47 +42,37 @@ const Login = () => {
     event.preventDefault();
   };
 
-  const {signIn} = useContext(AuthContext);
-  // const navigate = useNavigate
+    const handleSubmit = event =>{
+        event.preventDefault();
 
-  // const handleGoogleSignIn = () =>{
-      
-    //   signInWithGoogle()
-    //   .then(result =>{
-    //     const user = result.user;
-    //     console.log(user);
-    //   })
-    //   .catch(error => console.log(error))
-    // }
-    
-  const handleSubmit = event =>{
-      event.preventDefault();
-      // const email = form.email.value;
-      // const password = form.password.value;
-      // console.log(email, password);
+        // const form = event.target;
+        // const name = form.name.value;
+        // const email = form.email.value;
+        // const password = form.password.value;
+        // console.log(name, email, password);
 
-      signIn(values.email, values.password)
-      .then(result =>{
-        const user = result.user;
-        console.log(user);
-        values.email = "";
-        values.password="";
-        navigateHome();
-        // form.reset();
-        // navigate('/');
-      })
-      .catch(error => {
-        console.error(error);
-      })
+        createUser(values.email, values.password)
+        .then(result =>{
+          const user = result.user;
+          console.log('registered user', user);
+          values.email = "";
+          values.password="";
+          navigateLogin();
+          // TODO CREATE USER IN THE DB WHEN CREATING
+        })
+        .catch(error =>{
+          console.error(error)
+        })
     }
-  return (
-    <>
+
+    return (
+      <>
       <div className="login__main">
         <div className="login__row row ">
           <div className="login__right card">
             <div className="form__login">
               <div className="login__title">
-                <h2>Connect to your account</h2>
+                <h2>Register to the best cinema</h2>
               </div>
               <div className="login__btns">
                 <div className="google__login">
@@ -136,6 +125,19 @@ const Login = () => {
                       variant="filled"
                       focused
                       size="small"
+                      onChange={handleChange("name")}
+                    />
+                  </div>
+                  <div className="sign_name">
+                    <h5>Email</h5>
+                    <TextField
+                      sx={{}}
+                      fullWidth
+                      id="standard-basic"
+                      className=""
+                      variant="filled"
+                      focused
+                      size="small"
                       onChange={handleChange("email")}
                     />
                   </div>
@@ -169,10 +171,10 @@ const Login = () => {
                   </div>
                 </Box>
                 <div className="new__acc">
-                  <button type="submit" onClick={handleSubmit}>Login here</button>
-                  <div className="register_btn" onClick={navigateRegister}>
+                  <button type="submit" onClick={handleSubmit}>Register here</button>
+                  {/* <div className="register_btn" onClick={navigateRegister}>
                     Dont have an Account? <b>Register</b>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -180,7 +182,7 @@ const Login = () => {
         </div>
       </div>
     </>
-  );
+    );
 };
 
-export default Login;
+export default Register;
