@@ -6,7 +6,7 @@ import "./../node_modules/touch-loader/touchLoader";
 import React, { useEffect, useState } from "react";
 import Myloader from "react-spinners/ClipLoader";
 import NotFound from "./pages/Errors/NotFound";
-import Login  from "./components/Authetication/Login";
+import Login  from "./components/Authetication/Login/Login";
 
 function App() {
   const [spinner, setSpinner] = useState(true);
