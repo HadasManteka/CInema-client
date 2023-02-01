@@ -1,12 +1,14 @@
 import Heading from "../Header/Heading";
 import "./MainNav.css";
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from "react-router-dom";
 import HomeIcon from "../../images/home-icon.svg";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import MovieIcon from "../../images/movie-icon.svg";
 import TheatersIcon from "../../images/series-icon.svg";
 import $ from "jquery";
+import {AuthContext} from "../context/UserContext";
+
 
 $(function () {
   $(document).on("scroll", function () {
@@ -16,6 +18,12 @@ $(function () {
 });
 
 const MainNav = () => {
+  const {user} = useContext(AuthContext);
+  
+  const getUser = () => {
+    return user;
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand navbar-light fixed-top">
@@ -82,13 +90,19 @@ const MainNav = () => {
             </li>
           </ul>
 
-          <div className="all__right">
-            <div className="btn-login">
-              <Link to="/login">
-                <button className=" login-btn">login</button>
-              </Link>
-            </div>
-          </div>
+          {
+            getUser() == null ? 
+            (<div className="all__right">
+              <div className="btn-login">
+                <Link to="/login">
+                  <button className=" login-btn">login</button>
+                </Link>
+              </div>
+            </div>) : 
+            (<div className="all__right">
+              hello, {getUser().email}
+            </div>)
+          }
         </div>
       </nav>
     </>

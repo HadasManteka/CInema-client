@@ -20,6 +20,8 @@ const Login = () => {
   });
 
   const history = useHistory();
+  const {signIn} = useContext(AuthContext);
+  
   const navigateHome = () => {
     history.push("/");
   };
@@ -43,7 +45,7 @@ const Login = () => {
     event.preventDefault();
   };
 
-  const {signIn} = useContext(AuthContext);
+  
   // const navigate = useNavigate
 
   // const handleGoogleSignIn = () =>{
