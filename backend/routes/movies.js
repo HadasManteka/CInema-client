@@ -1,10 +1,7 @@
 var express = require('express');
-const mongoose = require('mongoose')
 const MovieController = require('../controllers/movies')
 var router = express.Router();
-var connectionString = "mongodb://mongo:secret@localhost:27017/";
- 
-mongoose.connect(connectionString)
+
  
 router.get('/getMovies', (req, res) => {
     MovieController.getMovies().then(movies => {
@@ -33,5 +30,16 @@ router.put('/updateMovie/:id', (req, res) => {
         res.status(500).send({error: error.message});
     });
 });
+
+router.post('/createMovie', (req, res) => {
+    const movie = req.body;
+    
+    MovieController.createMovie(movie).then(newMovie => {
+        res.send(newMovie);
+    }).catch(error => {
+        res.status(500).send({error: error.message});
+    });
+});
+
     
 module.exports = router;
