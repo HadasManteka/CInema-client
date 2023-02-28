@@ -1,5 +1,4 @@
 import "./Heading.css";
-import mySvg from "../../images/hbo-max.svg";
 
 const Heading = () => {
   return (
