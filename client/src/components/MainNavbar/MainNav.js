@@ -21,7 +21,8 @@ const MainNav = () => {
   const {user} = useContext(AuthContext);
   
   const getUser = () => {
-    return user;
+    // return user;
+    return {email: "noa@gmail.com", password: "123", name: "noa"}
   }
 
   return (
@@ -99,8 +100,11 @@ const MainNav = () => {
                 </Link>
               </div>
             </div>) : 
-            (<div className="all__right">
-              hello, {getUser().email}
+            (<div className="user_profie_btn">
+              {/* hello, {getUser().name} */}
+                <Link to="/userProfile">
+                  <button className="user-profile-btn">User Profile</button>
+                </Link>
             </div>)
           }
         </div>

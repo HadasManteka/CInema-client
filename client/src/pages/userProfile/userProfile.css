@@ -1,0 +1,52 @@
+.user_profile__main {
+    padding-top: 80px;
+}
+
+.user_details {
+    width: 26%;
+    height: 33vi;
+    margin-left: 15%;
+    margin-top: 5%;
+    border: 2px solid white;
+    border-radius: 4%;
+    position: relative;
+}
+
+.userName {
+    font-family: "Roboto", sans-serif;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    font-size: 5vi;
+    color: #fff;
+    width: fit-content;
+    margin: auto;
+    padding-top: 15%;
+}
+
+.userEmail {
+    font-family: "Roboto", sans-serif;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    font-size: 2vi;
+    color: #fff;
+    width: fit-content;
+    margin: auto;
+    padding-top: 5%;
+}
+
+.editButton {
+    position: absolute;
+    bottom:   8%;
+    right: 38%;
+    font-size: 130%;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 2%;
+    background-color: transparent;
+    border-radius: 10%;
+}
+
+.editButton:hover {
+    background-color: rgba(255, 255, 255, 0.114);
+    box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+}

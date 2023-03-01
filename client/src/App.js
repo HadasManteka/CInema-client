@@ -8,6 +8,7 @@ import Myloader from "react-spinners/ClipLoader";
 import NotFound from "./pages/Errors/NotFound";
 import Login  from "./components/Authetication/Login/Login";
 import Register  from "./components/Authetication/Register/Register";
+import UserProfile from "./pages/userProfile/userProfile";
 
 function App() {
   const [spinner, setSpinner] = useState(true);
@@ -24,6 +25,7 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route exact path="/error" component={NotFound} />
+            <Route path="/userProfile" component={UserProfile} exact />
             <Route path="/login" component={Login} exact />
             <Route path="/register" component={Register} exact />
             <Route path="/" component={Routes} />

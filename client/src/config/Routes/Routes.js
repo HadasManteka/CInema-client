@@ -7,6 +7,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import MainNav from "../../components/MainNavbar/MainNav";
 import Footer from "../../components/Footer/Footer";
 import CopyWrite from "../../components/CopyWrite__footer/LastFooter";
+import UserProfile from "../../pages/userProfile/userProfile";
 
 const Routes = () => {
   return (
@@ -19,6 +20,7 @@ const Routes = () => {
           {/* <Route path="/all-movies" component={Movies} />
           <Route path="/treading" component={Treading} />
           <Route path="/all-series" component={TvSeries} /> */}
+          <Route path="/userProfile" component={UserProfile} />
           <Redirect to="/error" />
         </Switch>
       </div>
