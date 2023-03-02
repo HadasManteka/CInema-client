@@ -31,7 +31,7 @@ router.put('/updateUser/:id', (req, res) => {
 });
 
 router.post('/createUser', (req, res) => {
-    const user = req.body;
+    const user = req.body.user;
     console.log(user)
     UserController.createUser(user).then(createdUser => {
         res.send(createdUser);
