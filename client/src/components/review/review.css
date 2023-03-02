@@ -1,0 +1,39 @@
+.review__main {
+    margin-top: 1%;
+}
+
+.review_row {
+    display:flex;
+    flex-direction:row;
+    padding: 2%;
+}
+
+.movie_logo {
+    margin-left: 1%;
+    width: 200px;
+    height: 170px;
+    border-radius: 20%;
+}
+
+.description {
+    margin-left: 5%;
+}
+
+.movie_title {
+    position: absolute;
+    float: left;
+    width: max-content;
+    float: right;
+    color: white;
+    font-size: 48px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.movie_description {
+    position: absolute;
+    inline-size: 60%;
+    overflow-wrap: break-word;
+    margin-top: 7%;
+    color: #ffffffd7;
+    font-size: 20px;
+}

@@ -3,6 +3,8 @@ import React, { useState, useContext } from "react";
 import MainNav from "../../components/MainNavbar/MainNav";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../components/context/UserContext";
+import Review from "../../components/review/review";
+import movieIcon from '../../images/MovieLogo.png'
 
 const UserProfile = () => {
     const {user} = useContext(AuthContext);
@@ -10,6 +12,14 @@ const UserProfile = () => {
     const getUser = () => {
       // return user;
       return {email: "noa@gmail.com", password: "123", name: "noa"}
+    }
+    
+    // const {reviews} = useContext();
+    
+    const getReviews = () => {
+      // return reviews;
+      return [{logo: movieIcon, title: "best movie", description: "amazing movie"},{logo: movieIcon, title: "ok movie", description: "was ok"},
+      {logo: movieIcon, title: "more movie", description: "lalsldskodspjihiug,dsvkbib  movie"}, {logo: movieIcon, title: "frozen", description: "ttttttttttttttttttttttttttttttttttttttttttttttttttttttt\newgduygiuytfyitdfytifiyt"}]
     }
 
   const history = useHistory()
@@ -26,6 +36,14 @@ const UserProfile = () => {
           <h1 className="userName">{getUser().name}</h1>
           <h6 className="userEmail">{getUser().email}</h6>
           <button className="editButton">Edit User</button>
+        </div>
+        <div className="reviews">
+          {
+            getReviews().map((review) => {
+              return <Review logo={review.logo} title={review.title} description={review.description}></Review>
+            })
+          }
+          
         </div>
       </div>
     </>
