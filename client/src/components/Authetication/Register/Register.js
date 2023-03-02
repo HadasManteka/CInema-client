@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
   const {createUser, signInWithGoogle} = useContext(AuthContext);
@@ -42,28 +43,26 @@ const Register = () => {
     event.preventDefault();
   };
 
-    const handleSubmit = event =>{
-        event.preventDefault();
+  const handleSubmit = event =>{
+      event.preventDefault();
 
-        // const form = event.target;
-        // const name = form.name.value;
-        // const email = form.email.value;
-        // const password = form.password.value;
-        // console.log(name, email, password);
-
-        createUser(values.email, values.password)
-        .then(result =>{
-          const user = result.user;
-          console.log('registered user', user);
-          values.email = "";
-          values.password="";
-          navigateLogin();
-          // TODO CREATE USER IN THE DB WHEN CREATING
-        })
-        .catch(error =>{
-          console.error(error)
-        })
+      createUser(values.email, values.password)
+      .then(result =>{
+        createUserDB(values.name, values.name, values.email, false);
+      })
+      .catch(error =>{
+        console.error(error)
+      })
     }
+
+    const createUserDB = (first_name, last_name, email, is_admin) => {
+    axios.post("http://localhost:3000/createUser",{user: {first_name, last_name, email, is_admin}} ).then(res => {
+      console.log(res);
+      values.email = "";
+      values.password="";
+      navigateLogin();
+    })
+  }
 
     return (
       <>
