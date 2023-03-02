@@ -1,6 +1,11 @@
 const express = require("express");
 const app = express();
 
+const mongoose = require("mongoose")
+mongoose.connect("mongodb+srv://movies-atlas-db:yjP8NyM9kh4GX7H@cluster0.kdvj33y.mongodb.net/?retryWrites=true&w=majority")
+
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("homepage");
 });

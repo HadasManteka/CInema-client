@@ -1,10 +1,6 @@
 var express = require('express');
-const mongoose = require('mongoose');
 const ReviewController = require('../controllers/reviews');
 var router = express.Router();
-var connectionString = "mongodb://mongo:secret@localhost:27017/";
-
-mongoose.connect(connectionString)
 
 router.get('/getReviews', (req, res) => {
     ReviewController.getReview().then(reviews => {
@@ -47,6 +43,16 @@ router.put('/updateReview/:id', (req, res) => {
     review._id = id;
     ReviewController.updateReview(review).then(updatedReview => {
         res.send(updatedReview);
+    }).catch(error => {
+        res.status(500).send({error: error.message});
+    });
+});
+
+
+router.post('/createReview', (req, res) => {
+    const review = req.body;
+    ReviewController.createReview(review).then(createdReview => {
+        res.send(createdReview);
     }).catch(error => {
         res.status(500).send({error: error.message});
     });

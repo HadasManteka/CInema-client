@@ -1,4 +1,4 @@
-const Review = require("../models/revies");
+const Review = require("../models/reviews");
 
 const getReview = async () => {
     return await Review.find(
@@ -28,10 +28,15 @@ const updateReview = async (user) => {
     return updatedReview;
 };
 
+const createReview = async (review) => {
+    return await Review.create(review);
+};
+
 module.exports = {
     getReview,
     getReviewById,
     getReviewByUserId,
     getReviewByMovieId,
-    updateReview
+    updateReview,
+    createReview
 }

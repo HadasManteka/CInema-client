@@ -20,8 +20,13 @@ const updateUser = async (user) => {
     return updatedUser;
 };
 
+const createUser = async (user) => {
+    return await User.create(user)
+};
+
 module.exports = {
     getUsers,
     getUserById,
-    updateUser
+    updateUser, 
+    createUser
 }

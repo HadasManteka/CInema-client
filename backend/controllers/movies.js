@@ -52,10 +52,16 @@ const getAverageReviewRatingsByMovie = async () => {
     });
 };
 
+const createMovie = async (movie) => {
+    return await Movie.create(movie);
+};
+
+
 module.exports = {
     getMovies,
     getMovieById,
     updateMovie,
     getMoviesGroupedByYear,
-    getAverageReviewRatingsByMovie
+    getAverageReviewRatingsByMovie,
+    createMovie
 }
