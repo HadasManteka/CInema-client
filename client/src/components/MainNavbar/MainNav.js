@@ -74,20 +74,6 @@ const MainNav = () => {
                 Movies
               </Link>
             </li>
-            <li className="nav-item nav__link">
-              <Link className="nav-link" to="/all-series">
-                <img
-                  src={TheatersIcon}
-                  style={{
-                    fontSize: "17px",
-                    marginBottom: "5px",
-                    marginRight: "1px",
-                  }}
-                  alt=""
-                />
-                TvSeries
-              </Link>
-            </li>
           </ul>
 
           {
