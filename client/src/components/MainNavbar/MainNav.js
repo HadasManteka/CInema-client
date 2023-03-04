@@ -18,10 +18,10 @@ $(function () {
 });
 
 const MainNav = () => {
-  const {user} = useContext(AuthContext);
+  const {getCurrentUser, logOut} = useContext(AuthContext);
   
   const getUser = () => {
-    return user;
+    return getCurrentUser();
   }
 
   return (
@@ -101,6 +101,11 @@ const MainNav = () => {
             </div>) : 
             (<div className="all__right">
               hello, {getUser().email}
+              <div className="btn-login">
+                <Link to="/login">
+                  <button className=" login-btn" onClick={logOut}>logout</button>
+                </Link>
+              </div>
             </div>)
           }
         </div>

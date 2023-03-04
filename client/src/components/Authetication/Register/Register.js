@@ -24,8 +24,8 @@ const Register = () => {
     showPassword: false,
   });
 
-  const navigateLogin = () => {
-    history.push("/login");
+  const navigateHome = () => {
+    history.push("/");
   };
 
   const handleChange = (prop) => (event) => {
@@ -60,7 +60,7 @@ const Register = () => {
       console.log(res);
       values.email = "";
       values.password="";
-      navigateLogin();
+      navigateHome();
     })
   }
 
