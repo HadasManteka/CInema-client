@@ -4,9 +4,10 @@ const axios = require('axios');
 const Movie = require("./models/movies");
 
 const mongoose = require("mongoose");
+const { MongoBulkWriteError } = require('mongodb');
 mongoose.connect("mongodb+srv://movies-atlas-db:yjP8NyM9kh4GX7H@cluster0.kdvj33y.mongodb.net/?retryWrites=true&w=majority");
 
-[ ...Array(1) ].forEach((_, i) => axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US&page=${++i}`)
+[ ...Array(100) ].forEach((_, i) => axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US&page=${++i}`)
   .then((response) => {
     response.data.results.forEach((movieData) => {
         
@@ -26,12 +27,13 @@ mongoose.connect("mongodb+srv://movies-atlas-db:yjP8NyM9kh4GX7H@cluster0.kdvj33y
                         newMovie.save()
                             .then(() => {console.log(`New movie "${newMovie.name}" added successfully!`);})
                             .catch((err) => {console.error(err);});
+
                     }
                 });
             })
             .catch((error) => console.log(error));
     });
   })
-  .catch((error) => console.log(error)));
-
-mongoose.disconnect();
+  .catch((error) => {
+    console.log(error);
+  }));
