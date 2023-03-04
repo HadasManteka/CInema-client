@@ -88,16 +88,16 @@ const Login = () => {
                 <h2>Connect to your account</h2>
               </div>
               <div className="login__btns">
-                <div className="google__login">
+                {/* <div className="google__login">
                   <button className="google">
                     <img src={GoogleIcon} width="20" alt="" /> Continue with
                     Google
                   </button>
-                </div>
+                </div> */}
                 <div className="or__line">
-                  <p className="span-h"></p>
+                  {/* <p className="span-h"></p>
                   <p className="span-p"> or</p>
-                  <p className="span-k"></p>
+                  <p className="span-k"></p> */}
                 </div>
                 <Box
                   component="form"
@@ -174,6 +174,9 @@ const Login = () => {
                   <button type="submit" onClick={handleSubmit}>Login here</button>
                   <div className="register_btn" onClick={navigateRegister}>
                     Dont have an Account? <b>Register</b>
+                  </div>
+                  <div className="register_btn" onClick={navigateHome}>
+                   Continue without login
                   </div>
                 </div>
               </div>
