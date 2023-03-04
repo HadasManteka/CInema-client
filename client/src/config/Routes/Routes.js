@@ -17,8 +17,7 @@ const Routes = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           {/* <Route path="/all-movies" component={Movies} />
-          <Route path="/treading" component={Treading} />
-          <Route path="/all-series" component={TvSeries} /> */}
+          <Route path="/treading" component={Treading} />*/}
           <Redirect to="/error" />
         </Switch>
       </div>

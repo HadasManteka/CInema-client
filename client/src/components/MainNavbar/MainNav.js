@@ -18,10 +18,10 @@ $(function () {
 });
 
 const MainNav = () => {
-  const {user} = useContext(AuthContext);
+  const {getCurrentUser, logOut} = useContext(AuthContext);
   
   const getUser = () => {
-    return user;
+    return getCurrentUser();
   }
 
   return (
@@ -74,20 +74,6 @@ const MainNav = () => {
                 Movies
               </Link>
             </li>
-            <li className="nav-item nav__link">
-              <Link className="nav-link" to="/all-series">
-                <img
-                  src={TheatersIcon}
-                  style={{
-                    fontSize: "17px",
-                    marginBottom: "5px",
-                    marginRight: "1px",
-                  }}
-                  alt=""
-                />
-                TvSeries
-              </Link>
-            </li>
           </ul>
 
           {
@@ -101,6 +87,11 @@ const MainNav = () => {
             </div>) : 
             (<div className="all__right">
               hello, {getUser().email}
+              <div className="btn-login">
+                <Link to="/login">
+                  <button className=" login-btn" onClick={logOut}>logout</button>
+                </Link>
+              </div>
             </div>)
           }
         </div>
