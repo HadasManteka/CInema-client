@@ -24,7 +24,7 @@ const getMoviesGroupedByYear = async () => {
     return await Movie.aggregate([
         {
             $group: {
-                id: { year: "$release_date" },
+                _id: { $year: "$release_date" },
                 movies: { $push: "$$ROOT" },
                 reviewsCount: { $sum: "$reviews.length" }
             }

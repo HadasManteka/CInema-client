@@ -11,6 +11,14 @@ router.get('/getMovies', (req, res) => {
     });
 });
     
+router.get('/getMoviesGroupedByYear', (req, res) => {
+    MovieController.getMoviesGroupedByYear().then(movies => {
+        res.send(movies);
+    }).catch(error => {
+        res.status(500).send({error: error.message});
+    });
+});
+
 router.post('/getMovieById/:id', (req, res) => {
     const id = req.params.id;
     MovieController.getMovieById(id).then(movie => {
