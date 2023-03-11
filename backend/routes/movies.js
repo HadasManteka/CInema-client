@@ -10,6 +10,14 @@ router.get('/getMovies', (req, res) => {
         res.status(500).send({error: error.message});
     });
 });
+
+router.get('/getTopRatedMovies', (req, res) => {
+    MovieController.getTopRatedMovies().then(movies => {
+        res.send(movies);
+    }).catch(error => {
+        res.status(500).send({error: error.message});
+    });
+});
     
 router.post('/getMovieById/:id', (req, res) => {
     const id = req.params.id;
