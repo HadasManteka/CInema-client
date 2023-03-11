@@ -1,1 +1,1 @@
-# CInema-client
+# Cinema
