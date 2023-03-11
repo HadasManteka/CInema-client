@@ -60,7 +60,7 @@ const Register = () => {
     }
 
     const createUserDB = (first_name, last_name, email, is_admin) => {
-    axios.post("http://localhost:3000/createUser",{user: {first_name, last_name, email, is_admin}} ).then(res => {
+    axios.post("http://localhost:4000/createUser",{user: {first_name, last_name, email, is_admin}} ).then(res => {
       console.log(res);
       values.email = "";
       values.password="";

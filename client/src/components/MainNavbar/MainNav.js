@@ -48,7 +48,7 @@ const MainNav = () => {
               </Link>
             </li>
             <li className="nav-item  nav__link">
-              <Link className="nav-link" to="/treading">
+              <Link className="nav-link" to="/Statistics">
                 <WhatshotIcon
                   style={{
                     fontSize: "17px",
@@ -57,7 +57,7 @@ const MainNav = () => {
                     marginRight: "2px",
                   }}
                 />
-                Treading
+                Statistics
               </Link>
             </li>
             <li className="nav-item  nav__link">
