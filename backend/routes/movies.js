@@ -10,6 +10,14 @@ router.get('/getMovies', (req, res) => {
         res.status(500).send({error: error.message});
     });
 });
+
+router.get('/getTopRatedMovies', (req, res) => {
+    MovieController.getTopRatedMovies().then(movies => {
+        res.send(movies);
+    }).catch(error => {
+        res.status(500).send({error: error.message});
+    });
+});
     
 router.get('/getMoviesGroupedByYear', (req, res) => {
     MovieController.getMoviesGroupedByYear().then(movies => {

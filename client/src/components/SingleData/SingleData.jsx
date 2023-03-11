@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { img_300, unavailable } from "../../api/config/DefaultImages";
+import { unavailable } from "../../api/config/DefaultImages";
 import "./SingleData.css";
 import MuiPlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import { styled } from "@mui/material/styles";
@@ -14,13 +14,9 @@ const PlayArrowRoundedIcon = styled(MuiPlayArrowRoundedIcon)(`
   
 `);
 const SingleData = ({
-  poster_path,
-  title,
-  name,
+  img_url,
   id,
-  vote_average,
-  release_date,
-  first_air_date,
+  rating,
   mediaType,
   media_type,
 }) => {
@@ -46,12 +42,12 @@ const SingleData = ({
         className="SingleDataMedia"
         onClick={handleClick}
       >
-        <span className={` tag ${setVoteClass(vote_average)} vote__tag`}>
-          {Math.round(vote_average * 10) / 10}
+        <span className={` tag ${setVoteClass(rating)} vote__tag`}>
+          {Math.round(rating * 10) / 10}
         </span>
 
         <img
-          src={poster_path ? `${img_300}/${poster_path}` : unavailable}
+          src={img_url ? img_url : unavailable}
           alt=""
         />
         <div className="read__more">
@@ -65,12 +61,6 @@ const SingleData = ({
             className="play__btn"
           />
           {/* <button >Read More</button> */}
-        </div>
-        <div className="SingleDataDetails">
-          <h6>
-            {title || name}(
-            {(first_air_date || release_date || "-----").substring(0, 4)})
-          </h6>
         </div>
       </div>
     </>
