@@ -192,6 +192,13 @@ main button {
 }
 .ListContent2 {
   display: flex;
+  justify-content: space-between;
+}
+@media screen and (min-width: 1000px) {
+  .ListContent2 {
+    margin-right: 60px;
+    margin-left: 60px;
+  }
 }
 .title__home {
   display: flex;
