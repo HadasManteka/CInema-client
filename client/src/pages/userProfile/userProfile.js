@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import MainNav from "../../components/MainNavbar/MainNav";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../components/context/UserContext";
-import Review from "../../components/review/review";
+import Review from "../../components/reviewBox/reviewBox";
 import movieIcon from '../../images/MovieLogo.png'
 
 const UserProfile = () => {
