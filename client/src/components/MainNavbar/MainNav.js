@@ -18,7 +18,7 @@ $(function () {
 });
 
 const MainNav = () => {
-  const {user} = useContext(AuthContext);
+  const {getCurrentUser, logOut} = useContext(AuthContext);
   
   const getUser = () => {
     // return user;
@@ -49,7 +49,7 @@ const MainNav = () => {
               </Link>
             </li>
             <li className="nav-item  nav__link">
-              <Link className="nav-link" to="/treading">
+              <Link className="nav-link" to="/Statistics">
                 <WhatshotIcon
                   style={{
                     fontSize: "17px",
@@ -58,7 +58,7 @@ const MainNav = () => {
                     marginRight: "2px",
                   }}
                 />
-                Treading
+                Statistics
               </Link>
             </li>
             <li className="nav-item  nav__link">
@@ -73,20 +73,6 @@ const MainNav = () => {
                   alt=""
                 />
                 Movies
-              </Link>
-            </li>
-            <li className="nav-item nav__link">
-              <Link className="nav-link" to="/all-series">
-                <img
-                  src={TheatersIcon}
-                  style={{
-                    fontSize: "17px",
-                    marginBottom: "5px",
-                    marginRight: "1px",
-                  }}
-                  alt=""
-                />
-                TvSeries
               </Link>
             </li>
           </ul>
@@ -105,6 +91,13 @@ const MainNav = () => {
                 <Link to="/userProfile">
                   <button className="user-profile-btn">User Profile</button>
                 </Link>
+            {/* (<div className="all__right">
+              hello, {getUser().email}
+              <div className="btn-login">
+                <Link to="/login">
+                  <button className=" login-btn" onClick={logOut}>logout</button>
+                </Link>
+              </div> */}
             </div>)
           }
         </div>

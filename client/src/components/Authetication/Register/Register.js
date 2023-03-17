@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
   const {createUser, signInWithGoogle} = useContext(AuthContext);
@@ -22,6 +23,10 @@ const Register = () => {
     name:"",
     showPassword: false,
   });
+
+  const navigateHome = () => {
+    history.push("/");
+  };
 
   const navigateLogin = () => {
     history.push("/login");
@@ -42,28 +47,26 @@ const Register = () => {
     event.preventDefault();
   };
 
-    const handleSubmit = event =>{
-        event.preventDefault();
+  const handleSubmit = event =>{
+      event.preventDefault();
 
-        // const form = event.target;
-        // const name = form.name.value;
-        // const email = form.email.value;
-        // const password = form.password.value;
-        // console.log(name, email, password);
-
-        createUser(values.email, values.password)
-        .then(result =>{
-          const user = result.user;
-          console.log('registered user', user);
-          values.email = "";
-          values.password="";
-          navigateLogin();
-          // TODO CREATE USER IN THE DB WHEN CREATING
-        })
-        .catch(error =>{
-          console.error(error)
-        })
+      createUser(values.email, values.password)
+      .then(result =>{
+        createUserDB(values.name, values.name, values.email, false);
+      })
+      .catch(error =>{
+        console.error(error)
+      })
     }
+
+    const createUserDB = (first_name, last_name, email, is_admin) => {
+    axios.post("http://localhost:4000/createUser",{user: {first_name, last_name, email, is_admin}} ).then(res => {
+      console.log(res);
+      values.email = "";
+      values.password="";
+      navigateHome();
+    })
+  }
 
     return (
       <>
@@ -75,16 +78,16 @@ const Register = () => {
                 <h2>Register to the best cinema</h2>
               </div>
               <div className="login__btns">
-                <div className="google__login">
+                {/* <div className="google__login">
                   <button className="google">
                     <img src={GoogleIcon} width="20" alt="" /> Continue with
                     Google
                   </button>
-                </div>
+                </div> */}
                 <div className="or__line">
-                  <p className="span-h"></p>
-                  <p className="span-p"> or</p>
-                  <p className="span-k"></p>
+                  {/* <p className="span-h"></p>
+                  <p className="span-p"> ---</p>
+                  <p className="span-k"></p> */}
                 </div>
                 <Box
                   component="form"
@@ -172,9 +175,9 @@ const Register = () => {
                 </Box>
                 <div className="new__acc">
                   <button type="submit" onClick={handleSubmit}>Register here</button>
-                  {/* <div className="register_btn" onClick={navigateRegister}>
-                    Dont have an Account? <b>Register</b>
-                  </div> */}
+                  <div className="register_btn" onClick={navigateLogin}>
+                    Already have an Account? <b>Login</b>
+                  </div>
                 </div>
               </div>
             </div>

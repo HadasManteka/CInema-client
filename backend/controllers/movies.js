@@ -7,6 +7,13 @@ const getMovies = async () => {
     );
 };
 
+const getTopRatedMovies = async () => {
+    return await Movie.find(
+      {},
+      "id img_url name release_date rating description trailer_url"
+    ).sort({ rating: -1 }); // Sort by rating in descending order
+};
+
 const getMovieById = async (id) => {
     return await Movie.findById(id);
 };
@@ -24,7 +31,7 @@ const getMoviesGroupedByYear = async () => {
     return await Movie.aggregate([
         {
             $group: {
-                id: { year: "$release_date" },
+                _id: { $year: "$release_date" },
                 movies: { $push: "$$ROOT" },
                 reviewsCount: { $sum: "$reviews.length" }
             }
@@ -59,6 +66,7 @@ const createMovie = async (movie) => {
 
 module.exports = {
     getMovies,
+    getTopRatedMovies,
     getMovieById,
     updateMovie,
     getMoviesGroupedByYear,

@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth';
+import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, } from 'firebase/auth';
 import app from '../Authetication/firebase.config';
 
 export const AuthContext = createContext();
@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const UserContext = ({children}) => {
-    const [user, setUser] = useState({});
+    // const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
 
     const googleProvider = new GoogleAuthProvider();
@@ -33,10 +33,14 @@ const UserContext = ({children}) => {
         return signOut(auth);
     }
 
+    const getCurrentUser=()=> {
+        return auth.currentUser;
+    }
+
     //why are we doing this?
     useEffect(() =>{
         const unsubscribe = onAuthStateChanged(auth, currentUser =>{
-            setUser(currentUser);
+            // setUser(auth.currentUser);
             setLoading(false);
             console.log('auth state changed', currentUser);
         })
@@ -45,7 +49,7 @@ const UserContext = ({children}) => {
         }
     }, [])
 
-    const authInfo = {user, loading, createUser, signIn, logOut, signInWithGoogle, signUpWithGoogle}
+    const authInfo = {loading, getCurrentUser, createUser, signIn, logOut, signInWithGoogle, signUpWithGoogle}
 
     return (
         <AuthContext.Provider value={authInfo}>

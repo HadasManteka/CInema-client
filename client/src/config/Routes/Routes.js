@@ -8,6 +8,7 @@ import MainNav from "../../components/MainNavbar/MainNav";
 import Footer from "../../components/Footer/Footer";
 import CopyWrite from "../../components/CopyWrite__footer/LastFooter";
 import UserProfile from "../../pages/userProfile/userProfile";
+import MovieGraph from "../../components/Graph/MovieGraph";
 
 const Routes = () => {
   return (
@@ -17,9 +18,8 @@ const Routes = () => {
       <div className="App">
         <Switch>
           <Route exact path="/" component={Home} />
-          {/* <Route path="/all-movies" component={Movies} />
-          <Route path="/treading" component={Treading} />
-          <Route path="/all-series" component={TvSeries} /> */}
+          {/* <Route path="/all-movies" component={Movies} /> */}
+          <Route path="/Statistics" component={MovieGraph} />
           <Route path="/userProfile" component={UserProfile} />
           <Redirect to="/error" />
         </Switch>
