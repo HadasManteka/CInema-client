@@ -18,12 +18,14 @@ import {
   Legend,
   PieChart,
   Pie,
+  Cell
 } from "recharts";
 
 const MovieGraph = (props) => {
   const [data, setData] = useState([]);
   const [graphType, setGraphType] = useState("bar"); // added state to keep track of the current graph type
-
+  const COLORS = ["#8884d8", "#82ca9d", "#FFBB28", "#FF8042", "#AF19FF", "#1151F9"];
+  
   const fetchData = () => {
     try {
     axios
@@ -34,7 +36,7 @@ const MovieGraph = (props) => {
           let data = [];
           response.data.forEach((element) => {
             if (element._id !== null) {
-              data.push({ name: element._id, total: element.movies.length });
+              data.push({ name: element._id, numberOfMovies: element.movies.length });
             }
           });
 
@@ -85,15 +87,19 @@ const MovieGraph = (props) => {
               <XAxis dataKey="name"/>
               <YAxis />
               <CartesianGrid strokeDasharray="2 2" />
-              <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }}
-                    formatter={function(total) {return `${total}`}}/>
+              <Tooltip wrapperStyle={{ width: 200, backgroundColor: '#ccc' }}
+                    formatter={function(numberOfMovies) {return `${numberOfMovies}`}}/>
               <Legend />
-              <Bar dataKey="total" fill="#00a0fc" stroke="#094750" strokeWidth={1}/>
+              <Bar dataKey="numberOfMovies" fill="#00a0fc" stroke="#094750" strokeWidth={1}>
+              {
+                data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+              }
+              </Bar>
             </BarChart>
           ) : (
             <PieChart width={700} height={350} data={data}>
               <Pie
-                dataKey="total"
+                dataKey="numberOfMovies"
                 data={data}
                 cx="50%"
                 cy="50%"
@@ -101,8 +107,12 @@ const MovieGraph = (props) => {
                 fill="#00a0fc" 
                 stroke="#094750"
                 label
-              />
-              <Tooltip  />
+              >
+              {
+                data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+              }
+              </Pie>
+              <Tooltip />
               <Legend />
             </PieChart>
           )}
