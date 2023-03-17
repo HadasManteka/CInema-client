@@ -5,13 +5,13 @@
 .review_row {
     display:flex;
     flex-direction:row;
-    padding: 2%;
+    padding: 0.5%;
 }
 
 .movie_logo {
     margin-left: 1%;
-    width: 200px;
-    height: 170px;
+    width: 12rem;
+    height: fit-content;
     border-radius: 20%;
 }
 
@@ -25,7 +25,7 @@
     width: max-content;
     float: right;
     color: white;
-    font-size: 48px;
+    font-size: 3rem;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -35,5 +35,24 @@
     overflow-wrap: break-word;
     margin-top: 7%;
     color: #ffffffd7;
-    font-size: 20px;
+    font-size: 1.2rem;
+}
+
+.autour_boxes {
+    float: right;
+    margin-left: auto;
+    margin-right: 15%;
+}
+
+.review_button {
+    color: #fff;
+    padding: 0.3%;
+    margin-top: 40%;
+}
+
+.review_button:hover {
+    border-radius: 10%;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.068);
+    box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
 }

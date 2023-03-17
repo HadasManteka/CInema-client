@@ -19,7 +19,9 @@ const UserProfile = () => {
     const getReviews = () => {
       // return reviews;
       return [{logo: movieIcon, title: "best movie", description: "amazing movie"},{logo: movieIcon, title: "ok movie", description: "was ok"},
-      {logo: movieIcon, title: "more movie", description: "lalsldskodspjihiug,dsvkbib  movie"}, {logo: movieIcon, title: "frozen", description: "ttttttttttttttttttttttttttttttttttttttttttttttttttttttt\newgduygiuytfyitdfytifiyt"}]
+      {logo: movieIcon, title: "more movie", description: "lalsldskodspjihiug,dsvkbib  movie"}, {logo: movieIcon, title: "frozen", description: "ttttttttttttttttttttttttttttttttttttttttttttttttttttttt\newgduygiuytfyitdfytifiyt"}, {logo: movieIcon, title: "frozen", description: "ttttttttttttttttttttttttttttttttttttttttttttttttttttttt\newgduygiuytfyitdfytifiyt"},
+      {logo: movieIcon, title: "best movie", description: "amazing movie"},{logo: movieIcon, title: "ok movie", description: "was ok"},
+      {logo: movieIcon, title: "more movie", description: "lalsldskodspjihiug,dsvkbib  movie"}, {logo: movieIcon, title: "frozen", description: "ttttttttttttttttttttttttttttttttttttttttttttttttttttttt\newgduygiuytfyitdfytifiyt"}, {logo: movieIcon, title: "frozen", description: "ttttttttttttttttttttttttttttttttttttttttttttttttttttttt\newgduygiuytfyitdfytifiyt"}]
     }
 
   const history = useHistory()
