@@ -38,7 +38,8 @@ const MovieGraph = (props) => {
             }
           });
 
-          setData(data);
+          let sortedData = [...data].sort((first, second) => first.name - second.name);
+          setData(sortedData);
         }
       });
     } catch (err) {
