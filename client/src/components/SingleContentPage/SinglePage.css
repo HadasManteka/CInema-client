@@ -445,3 +445,17 @@
     cursor: pointer;
     outline: none;
   }
+
+  .add_review_button {
+    width: 15%;
+    border-spacing: 10px; 
+    margin-left: 100px;
+    color: rgba(220, 220, 220, 0.575);
+    padding: 0.3%;
+    margin-top: 40%;
+  }
+
+  .add_review_button:hover {
+      cursor: pointer;
+      color: white;
+  }

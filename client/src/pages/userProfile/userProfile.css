@@ -22,7 +22,8 @@
     color: #fff;
     width: fit-content;
     margin: auto;
-    padding-top: 15%;
+    height: 100%;
+    margin-top: 15%;
 }
 
 .userEmail {
@@ -33,12 +34,12 @@
     color: #fff;
     width: fit-content;
     margin: auto;
-    padding-top: 5%;
+    margin-top: 5%;
 }
 
 .editButton {
     position: absolute;
-    bottom:   8%;
+    bottom: 8%;
     right: 40%;
     font-size: 130%;
     border: 1px solid #fff;
@@ -77,4 +78,32 @@
   ::-webkit-scrollbar-thumb {
     background: whitesmoke;
     border-radius: 10px;
+  }
+
+  .userName_edit {
+    margin-top: 5%;
+    text-align: center;
+    background: transparent;
+    font-family: "Roboto", sans-serif;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    font-size: 95px;
+    color: #fff;
+    width: 400px;
+    border: 2px rgba(255, 255, 255, 0.486) solid;
+    border-radius: 2%;
+  }
+
+  .userEmail_edit {
+    font-family: "Roboto", sans-serif;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    font-size: 40px;
+    color: #fff;
+    margin-top: 5%;
+    text-align: center;
+    background: transparent;
+    width: 400px;
+    border: 2px rgba(255, 255, 255, 0.486) solid;
+    border-radius: 2%;
   }

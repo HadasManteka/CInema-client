@@ -27,6 +27,11 @@ const SinglePage = () => {
             window.open(url, '_blank');
         }
     };
+    
+  const addReviewClick = () => {
+    history.push(`/review/${content.name}/new`);
+  };
+
     const fetchData = async () => {
         try {
             const { data } = await axios.get(`http://localhost:4000/getMovieById/${id}`);
@@ -78,7 +83,9 @@ const SinglePage = () => {
                                 />
 
                                 <div className="open__detailsPage">
-                                    <h3>{content.name}</h3>
+                                    <h3>{content.name}
+                                        <b className="add_review_button" onClick={addReviewClick}>+</b>
+                                    </h3>
                                     <div
                                         style={{
                                             zIndex: "1000",

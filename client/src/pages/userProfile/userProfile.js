@@ -8,29 +8,34 @@ import Review from "../../components/reviewBox/reviewBox";
 import Myloader from "react-spinners/PuffLoader";
 
 const UserProfile = () => {
-    const {user} = useContext(AuthContext);
-    const [allUserReviews, setAllUserReviews] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    let [color, setColor] = useState("grey");
-  
-    const getUser = () => {
-      // return user;
-      return {email: "noa@gmail.com", password: "123", name: "noa"}
-    }
-    
-    const fetchReviews = async() => {      
-      try {
-        const { data } = await axios.get(` 
-        http://localhost:4000/getMovies`);
-        console.log(data.slice(0, 7));
-        const filter = data.slice(0, 7);
-        setAllUserReviews(filter);
-        setIsLoading(false);
+  const {user} = useContext(AuthContext);
+  const [allUserReviews, setAllUserReviews] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  let [color, setColor] = useState("grey");
 
-      } catch (error) {
-        console.error(error);
-      }
+  const getUser = () => {
+    // return user;
+    return {email: "noa@gmail.com", password: "123", name: "noa"}
+  }
+  
+  const fetchReviews = async() => {      
+    try {
+      const { data } = await axios.get(` 
+      http://localhost:4000/getMovies`);
+      console.log(data.slice(0, 7));
+      const filter = data.slice(0, 7);
+      setAllUserReviews(filter);
+      setIsLoading(false);
+
+    } catch (error) {
+      console.error(error);
     }
+  }
+
+  const onSaveUser = () => {
+    setEditMode(false);
+  }
 
   const history = useHistory()
   
@@ -57,9 +62,19 @@ const UserProfile = () => {
         </div> ) : 
       (<div className="user_profile__main">
         <div className="user_details">
-          <h1 className="userName">{getUser().name}</h1>
-          <h6 className="userEmail">{getUser().email}</h6>
-          <button className="editButton">Edit User</button>
+          {
+            (!editMode) ? 
+              (<div>
+                <h1 className="userName">{getUser().name}</h1>
+                <h6 className="userEmail">{getUser().email}</h6>
+                <button className="editButton" onClick={ ()=> setEditMode(true) }>Edit User</button>
+              </div>) :
+              (<div>
+                <textarea rows={1} className="userName_edit">{getUser().name}</textarea>
+                <textarea className="userEmail_edit">{getUser().email}</textarea>
+                <button className="editButton" onClick={onSaveUser}>Save User</button>
+              </div>) 
+          }
         </div>
         <div className="reviews">
           {
