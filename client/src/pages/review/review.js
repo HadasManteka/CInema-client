@@ -1,34 +1,31 @@
 import "./review.css";
 // import React, { useState, useContext } from "react";
+import MainNav from "../../components/MainNavbar/MainNav";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import Myloader from "react-spinners/ClipLoader";
 import movieIcon from '../../images/MovieLogo.png'
+import CheckIcon from '@mui/icons-material/Check';
 
 const Review = (props) => {
 
   const [isLoading, setIsLoading] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   let [color, setColor] = useState("grey");
   let autour = true;
   const movieTitle = useParams().movie;
-  // let autour = props.autour;
   
   const fetchData = async () => {
-    // try {
-    //   const { data } = await axios.get(` 
-    //   https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${process.env.REACT_APP_API_KEY}&page=1`);
-    //   // eslint-disable-next-line
-    //   setContent(data);
       setIsLoading(true);
-    // } catch (error) {
-    //   if (error.response && error.response.status === 404) {
-    //     history.replace("/error");
-    //   }
-    // }
   };
 
+  const saveDescription = () => {
+    alert("saved!");
+    setEditMode(false);
+  }
+  
   useEffect(() => {
     window.scroll(0, 0);
     fetchData();
@@ -36,9 +33,11 @@ const Review = (props) => {
 
   return (
     <>
+    <MainNav />
     {isLoading ? (
       <>
         <div>
+
           <div className="open__modal">
 
             <img
@@ -48,7 +47,23 @@ const Review = (props) => {
             />
 
             <div className="open__detailsPage">
-                  <h3>Plane</h3>
+                <h3>Plane
+                {
+                  (autour) ? 
+                    (<b className="autour_buttons">
+                      {
+                        (!editMode) ?
+                          ( <b>
+                            <b className="review_button" onClick={ ()=> setEditMode(true) }><ModeEditIcon></ModeEditIcon></b>
+                            <b className="review_button"><DeleteForeverIcon></DeleteForeverIcon></b>
+                          </b>) :
+                        (<b>
+                          <b className="review_button"  onClick={saveDescription}><CheckIcon></CheckIcon></b>
+                        </b>) }
+                      </b>) :
+                    (<b></b>) 
+                }</h3>
+                
                   <div
                     style={{
                       zIndex: "1000",
@@ -68,10 +83,17 @@ const Review = (props) => {
                       <li>
                         REVIEW BY: <b className="review_by">{"Noa"}</b>
                       </li>
+                      
+                      {
+                        (!editMode) ?
+                          ( <li className="review_description">
+                            {"After a heroic job of successfully landing his storm-damaged aircraft in a war zone, a fearless pilot finds himself between the agendas of multiple militias planning to take the plane and its passengers hostage."}
+                          </li>) :
+                        (<div className="review_description">
+                          <textarea className="description_input" type="text"></textarea>
+                          </div>) }
 
-                        <li>
-                          {"After a heroic job of successfully landing his storm-damaged aircraft in a war zone, a fearless pilot finds himself between the agendas of multiple militias planning to take the plane and its passengers hostage."}
-                        </li>
+
 
                       <li>
                         LAST UPDATED: <span>{"18/03/2023"}</span>

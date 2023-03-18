@@ -26,8 +26,8 @@ const ReviewBox = (props) => {
             {
               (autour) ? 
                 (<div className="autour_boxes">
-                  <div className="edit_review review_button"><ModeEditIcon></ModeEditIcon></div>
-                  <div className="delete_review review_button"><DeleteForeverIcon></DeleteForeverIcon></div>
+                  <div className="review_box_button"><ModeEditIcon></ModeEditIcon></div>
+                  <div className="review_box_button"><DeleteForeverIcon></DeleteForeverIcon></div>
                 </div>) :
                 (<div></div>) 
             }

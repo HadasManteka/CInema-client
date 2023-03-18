@@ -149,3 +149,39 @@
       margin-left: 0px !important;
     }
   }
+
+  .autour_buttons {
+      /* display: table; */
+      width: 15%;
+      border-spacing: 10px; 
+      /* float: right; */
+      margin-left: 100px;
+  }
+  
+  .review_button {
+      color: rgba(220, 220, 220, 0.575);
+      padding: 0.3%;
+      margin-top: 40%;
+  }
+  
+  .review_button:hover {
+      cursor: pointer;
+      color: white;
+  }
+
+  .review_description {
+    height: 270px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+
+  .description_input {
+    height: 270px;
+    width: 450px;
+    background: transparent;
+    border: 2px white solid;
+    border-radius: 2%;
+    color: white;
+    padding: 1%;
+    padding-left: 2%;
+  }
