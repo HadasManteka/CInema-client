@@ -151,7 +151,7 @@ const Login = () => {
                   </div>
                 </Box>
                 <div className="new__acc">
-                <div>
+                <div style={{color:"red"}}>
                   {values.validMessage}
                     </div>
                   <button type="submit" onClick={handleSubmit}>Login here</button>

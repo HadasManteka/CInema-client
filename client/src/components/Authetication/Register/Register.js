@@ -82,13 +82,25 @@ const Register = () => {
       event.preventDefault();
 
       if (validation()) {
-        createUser(values.email, values.password)
-        .then(result =>{
-          createUserDB(values.name, values.name, values.email, false);
-        })
-        .catch(error =>{
-          console.log(error);
-        })
+
+        axios.get("http://localhost:4000/doesEmailExists/" + values.email).then(isExists=>{
+          
+        if (isExists.data) {
+          setValues({
+            ...values,
+            validMessage: "Email already exists",
+          });
+        } else {
+          createUser(values.email, values.password)
+            .then(result =>{
+              createUserDB(values.name, values.name, values.email, false);
+            })
+            .catch(error =>{
+              console.log(error);
+            })
+          }
+      });
+        
       }
     }
 
@@ -199,7 +211,7 @@ const Register = () => {
                   </div>
                 </Box>
                 <div className="new__acc">
-                  <div>
+                  <div style={{color:"red"}}>
                   {values.validMessage}
                     </div>
                   <button type="submit" onClick={handleSubmit}>Register here</button>
