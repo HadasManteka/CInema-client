@@ -18,12 +18,13 @@
     font-family: "Roboto", sans-serif;
     text-transform: capitalize;
     letter-spacing: 2px;
-    font-size: 95px;
+    font-size: 90px;
     color: #fff;
     width: fit-content;
     margin: auto;
     height: 100%;
     margin-top: 15%;
+    padding: 1%;
 }
 
 .userEmail {
@@ -35,6 +36,7 @@
     width: fit-content;
     margin: auto;
     margin-top: 5%;
+    padding: 1%;
 }
 
 .editButton {
@@ -80,7 +82,7 @@
     border-radius: 10px;
   }
 
-  .userName_edit {
+  .userFirstName_edit {
     margin-top: 5%;
     text-align: center;
     background: transparent;
@@ -88,7 +90,21 @@
     text-transform: capitalize;
     letter-spacing: 2px;
     font-size: 95px;
-    color: #fff;
+    color: #ffffff78;
+    width: 400px;
+    border: 2px rgba(255, 255, 255, 0.486) solid;
+    border-radius: 2%;
+  }
+
+  .userLastName_edit {
+    margin-top: 5%;
+    text-align: center;
+    background: transparent;
+    font-family: "Roboto", sans-serif;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    font-size: 95px;
+    color: #ffffff78;
     width: 400px;
     border: 2px rgba(255, 255, 255, 0.486) solid;
     border-radius: 2%;
@@ -99,7 +115,7 @@
     text-transform: capitalize;
     letter-spacing: 2px;
     font-size: 40px;
-    color: #fff;
+    color: #ffffff78;
     margin-top: 5%;
     text-align: center;
     background: transparent;

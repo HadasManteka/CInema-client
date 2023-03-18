@@ -19,7 +19,7 @@ const getReviewByMovieId = async (movie_id) => {
     return await Review.find({ movie_id });
 };
 
-const updateReview = async (user) => {
+const updateReview = async (review) => {
     const filter = { _id: review.id };
     const update = { ...review };
     const updatedReview = await Review.findOneAndUpdate(filter, update, {

@@ -64,6 +64,7 @@
     color: #2fc9f3;
     font-size: 14px;
     font-weight: 600 !important;
+    text-transform: capitalize !important;
   }
   .other_lists {
     z-index: 1000;

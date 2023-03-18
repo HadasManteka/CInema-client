@@ -29,7 +29,7 @@ const SinglePage = () => {
     };
     
   const addReviewClick = () => {
-    history.push(`/review/${content.name}/new`);
+    history.push(`/review/${id}/new`);
   };
 
     const fetchData = async () => {

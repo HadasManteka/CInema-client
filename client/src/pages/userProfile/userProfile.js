@@ -8,16 +8,20 @@ import Review from "../../components/reviewBox/reviewBox";
 import Myloader from "react-spinners/PuffLoader";
 
 const UserProfile = () => {
-  const {user} = useContext(AuthContext);
+  // const {user} = useContext(AuthContext);
+  const [user, setUser] = useState({email: "noa@gmail.com", password: "123", first_name: "noa", last_name: "bouba", id: "63da547b1a4bd6054082faf2"});
   const [allUserReviews, setAllUserReviews] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   let [color, setColor] = useState("grey");
+  let newFirstName = user.first_name;
+  let newLastName = user.last_name;
+  let newEmail = user.email;
 
-  const getUser = () => {
-    // return user;
-    return {email: "noa@gmail.com", password: "123", name: "noa"}
-  }
+  // const getUser = () => {
+  //   // return user;
+  //   return {email: "noa@gmail.com", password: "123", first_name: "noa", last_name: "bouba", id: ""}
+  // }
   
   const fetchReviews = async() => {      
     try {
@@ -33,8 +37,20 @@ const UserProfile = () => {
     }
   }
 
-  const onSaveUser = () => {
+  const onSaveUser = async () => {
     setEditMode(false);
+    alert(newFirstName)
+
+    try {
+        await axios.put(`http://localhost:4000/updateUser/${user.id}`,{first_name:newFirstName, last_name: newLastName, email: newEmail, is_admin: user.is_admin}).then(res => {
+          setUser(res.data);
+          console.log(res);
+        })
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+          history.replace("/error");
+      }
+    }
   }
 
   const history = useHistory()
@@ -43,10 +59,10 @@ const UserProfile = () => {
     history.push("/");
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     window.scroll(0, 0);
 
-    fetchReviews();
+    await fetchReviews();
     return () => {
       setAllUserReviews();
     };
@@ -65,13 +81,14 @@ const UserProfile = () => {
           {
             (!editMode) ? 
               (<div>
-                <h1 className="userName">{getUser().name}</h1>
-                <h6 className="userEmail">{getUser().email}</h6>
+                <h1 className="userName">{user.first_name + " " + user.last_name}</h1>
+                <h6 className="userEmail">{user.email}</h6>
                 <button className="editButton" onClick={ ()=> setEditMode(true) }>Edit User</button>
               </div>) :
               (<div>
-                <textarea rows={1} className="userName_edit">{getUser().name}</textarea>
-                <textarea className="userEmail_edit">{getUser().email}</textarea>
+                <textarea rows={1} className="userFirstName_edit" defaultValue={user.first_name} onChange={(e) => {newFirstName = (e.target.value)}}></textarea>
+                <textarea rows={1} className="userLastName_edit" defaultValue={user.last_name} onChange={(e) => {newLastName = (e.target.value)}}></textarea>
+                <textarea className="userEmail_edit" defaultValue={user.email} onChange={(e) => {newEmail = (e.target.value)}}></textarea>
                 <button className="editButton" onClick={onSaveUser}>Save User</button>
               </div>) 
           }
