@@ -29,6 +29,8 @@
     "react-scripts": "^5.0.0",
     "react-select": "^5.2.2",
     "react-spinners": "^0.11.0",
+    "react-use-websocket": "^3.0.0",
+    "react-uuid": "^2.0.0",
     "recharts": "^2.4.3",
     "rewire": "^6.0.0",
     "touch-loader": "^1.1.0",
