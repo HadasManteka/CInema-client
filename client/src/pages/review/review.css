@@ -3,11 +3,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
     position: relative;
-    height: 540px;
+    /* height: 540px; */
     padding-top: 100px;
   }
   .text-loading {
@@ -51,11 +48,6 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-image: linear-gradient(
-      to right,
-      rgb(11, 11, 58) 400px,
-      rgba(31, 31, 31, 0.5) 100%
-    );
   }
   .year {
     padding-left: 5px;
@@ -177,7 +169,7 @@
 
   .description_input {
     height: 270px;
-    width: 450px;
+    width: 90%;
     background: transparent;
     border: 2px white solid;
     border-radius: 2%;

@@ -1,12 +1,10 @@
 import "./review.css";
-// import React, { useState, useContext } from "react";
 import MainNav from "../../components/MainNavbar/MainNav";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import Myloader from "react-spinners/ClipLoader";
-import movieIcon from '../../images/MovieLogo.png'
 import CheckIcon from '@mui/icons-material/Check';
 
 const Review = (props) => {
@@ -15,6 +13,7 @@ const Review = (props) => {
   const [editMode, setEditMode] = useState(false);
   let [color, setColor] = useState("grey");
   let autour = true;
+  let newDescription = "";
   const movieTitle = useParams().movie;
   
   const fetchData = async () => {
@@ -22,7 +21,7 @@ const Review = (props) => {
   };
 
   const saveDescription = () => {
-    alert("saved!");
+    alert(newDescription);
     setEditMode(false);
   }
   
@@ -37,7 +36,6 @@ const Review = (props) => {
     {isLoading ? (
       <>
         <div>
-
           <div className="open__modal">
 
             <img
@@ -78,6 +76,7 @@ const Review = (props) => {
                     ).substring(0, 4)}{" "}
                     
                   </div>
+
                   <div className="other_lists">
                     <ul>
                       <li>
@@ -90,10 +89,8 @@ const Review = (props) => {
                             {"After a heroic job of successfully landing his storm-damaged aircraft in a war zone, a fearless pilot finds himself between the agendas of multiple militias planning to take the plane and its passengers hostage."}
                           </li>) :
                         (<div className="review_description">
-                          <textarea className="description_input" type="text"></textarea>
+                          <textarea className="description_input" type="text" onChange={(e) => {newDescription = (e.target.value)}}></textarea>
                           </div>) }
-
-
 
                       <li>
                         LAST UPDATED: <span>{"18/03/2023"}</span>

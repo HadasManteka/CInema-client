@@ -26,8 +26,6 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route exact path="/error" component={NotFound} />
-            <Route path="/userProfile" component={UserProfile} exact />
-            <Route path="/review/:movie/:reviewId" component={Review} exact />
             <Route path="/login" component={Login} exact />
             <Route path="/register" component={Register} exact />
             <Route path="/" component={Routes} />

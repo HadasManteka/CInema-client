@@ -1,27 +1,35 @@
 import "./userProfile.css";
-import React, { useState, useContext } from "react";
+import axios from "axios";
+import React, { useEffect, useState, useContext } from "react";
 import MainNav from "../../components/MainNavbar/MainNav";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../components/context/UserContext";
 import Review from "../../components/reviewBox/reviewBox";
-import movieIcon from '../../images/MovieLogo.png'
+import Myloader from "react-spinners/PuffLoader";
 
 const UserProfile = () => {
     const {user} = useContext(AuthContext);
-    
+    const [allUserReviews, setAllUserReviews] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    let [color, setColor] = useState("grey");
+  
     const getUser = () => {
       // return user;
       return {email: "noa@gmail.com", password: "123", name: "noa"}
     }
     
-    // const {reviews} = useContext();
-    
-    const getReviews = () => {
-      // return reviews;
-      return [{logo: movieIcon, title: "best movie", description: "amazing movie"},{logo: movieIcon, title: "ok movie", description: "was ok"},
-      {logo: movieIcon, title: "more movie", description: "lalsldskodspjihiug,dsvkbib  movie"}, {logo: movieIcon, title: "frozen", description: "ttttttttttttttttttttttttttttttttttttttttttttttttttttttt\newgduygiuytfyitdfytifiyt"}, {logo: movieIcon, title: "frozen", description: "ttttttttttttttttttttttttttttttttttttttttttttttttttttttt\newgduygiuytfyitdfytifiyt"},
-      {logo: movieIcon, title: "best movie", description: "amazing movie"},{logo: movieIcon, title: "ok movie", description: "was ok"},
-      {logo: movieIcon, title: "more movie", description: "lalsldskodspjihiug,dsvkbib  movie"}, {logo: movieIcon, title: "frozen", description: "ttttttttttttttttttttttttttttttttttttttttttttttttttttttt\newgduygiuytfyitdfytifiyt"}, {logo: movieIcon, title: "frozen", description: "ttttttttttttttttttttttttttttttttttttttttttttttttttttttt\newgduygiuytfyitdfytifiyt"}]
+    const fetchReviews = async() => {      
+      try {
+        const { data } = await axios.get(` 
+        http://localhost:4000/getMovies`);
+        console.log(data.slice(0, 7));
+        const filter = data.slice(0, 7);
+        setAllUserReviews(filter);
+        setIsLoading(false);
+
+      } catch (error) {
+        console.error(error);
+      }
     }
 
   const history = useHistory()
@@ -30,10 +38,24 @@ const UserProfile = () => {
     history.push("/");
   };
 
+  useEffect(() => {
+    window.scroll(0, 0);
+
+    fetchReviews();
+    return () => {
+      setAllUserReviews();
+    };
+  }, []);
+
   return (
     <>
     <MainNav />
-      <div className="user_profile__main">
+    
+    {isLoading ? (
+        <div className="major" style={{ height: "600px" }}>
+          <Myloader color={color} size={60} />
+        </div> ) : 
+      (<div className="user_profile__main">
         <div className="user_details">
           <h1 className="userName">{getUser().name}</h1>
           <h6 className="userEmail">{getUser().email}</h6>
@@ -41,13 +63,13 @@ const UserProfile = () => {
         </div>
         <div className="reviews">
           {
-            getReviews().map((review) => {
-              return <Review logo={review.logo} title={review.title} description={review.description}></Review>
+            allUserReviews.map((review) => {
+              return <Review logo={review.img_url} title={review.name} description={review.release_date}></Review>
             })
           }
           
         </div>
-      </div>
+      </div>)}
     </>
   );
 };
