@@ -44,6 +44,7 @@ app.post("/logout", async (req, res) => {
       clients[user].send(Object.keys(clients).length);
     });
     console.log(`${userId} disconnected.`);
+    res.status(200);
   };
 });
 

@@ -20,7 +20,7 @@ $(function () {
 
 const MainNav = () => {
   let [displayOnline, setDisplayOnline] = useState("0");
-  const {getCurrentUser, logOut} = useContext(AuthContext);
+  const {getCurrentUser, logOut, isAdmin} = useContext(AuthContext);
   const WS_URL = 'ws://127.0.0.1:4000';
 
   const getUser = () => {
@@ -28,9 +28,8 @@ const MainNav = () => {
   }
 
   const disconnect = () => {
-    axios.post("http://localhost:4000/logout" + '?userId=' + getUser()?.uid).then(res => {
-      logOut();
-    })
+    axios.post("http://localhost:4000/logout" + '?userId=' + getUser()?.uid)
+    logOut();
   }
 
   useWebSocket(WS_URL + '?userId=' + getUser()?.uid, {
@@ -66,6 +65,7 @@ const MainNav = () => {
                 Home <span className="sr-only">(current)</span>
               </Link>
             </li>
+            {isAdmin? 
             <li className="nav-item  nav__link">
               <Link className="nav-link" to="/Statistics">
                 <WhatshotIcon
@@ -78,7 +78,8 @@ const MainNav = () => {
                 />
                 Statistics
               </Link>
-            </li>
+            </li> : <div/>
+}
             <li className="nav-item  nav__link">
               <Link className="nav-link" to="/all-movies">
                 <img

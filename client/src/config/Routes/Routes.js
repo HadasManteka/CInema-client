@@ -6,8 +6,12 @@ import MainNav from "../../components/MainNavbar/MainNav";
 import Footer from "../../components/Footer/Footer";
 import CopyWrite from "../../components/CopyWrite__footer/LastFooter";
 import MovieGraph from "../../components/Graph/MovieGraph";
+import {AuthContext} from "../../components/context/UserContext";
+import React, {useContext} from "react";
 
 const Routes = () => {
+  const {isAdmin} = useContext(AuthContext);
+
   return (
     <>
       <MainNav />
@@ -16,7 +20,9 @@ const Routes = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/all-movies" component={Movies} />
-          <Route path="/Statistics" component={MovieGraph} />
+          {isAdmin ? 
+          <Route path="/Statistics" component={MovieGraph} /> : <Redirect to="/error" />
+          }
           <Route path="/movie/:id" children={<SinglePage />} />
           <Redirect to="/error" />
         </Switch>
