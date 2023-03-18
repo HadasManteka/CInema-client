@@ -1,9 +1,7 @@
-// import Treading from "../../pages/TreadingShows/Treading";
 import Home from "../../pages/Home/Home";
 import Movies from "../../pages/Movies/Movies";
-// import TvSeries from "../../pages/TvSeries/TvSeries";
 import { Redirect, Route, Switch } from "react-router-dom";
-// import SinglePage from "../../components/SingleContentPage/SinglePage";
+import SinglePage from "../../components/SingleContentPage/SinglePage";
 import MainNav from "../../components/MainNavbar/MainNav";
 import Footer from "../../components/Footer/Footer";
 import CopyWrite from "../../components/CopyWrite__footer/LastFooter";
@@ -23,6 +21,7 @@ const Routes = () => {
           <Route path="/Statistics" component={MovieGraph} />
           <Route path="/userProfile" component={UserProfile} />
           <Route path="/review/:movie/:reviewId" component={Review} />
+          <Route path="/movie/:id" children={<SinglePage />} />
           <Redirect to="/error" />
         </Switch>
       </div>
