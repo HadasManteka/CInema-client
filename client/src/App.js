@@ -8,6 +8,8 @@ import Myloader from "react-spinners/ClipLoader";
 import NotFound from "./pages/Errors/NotFound";
 import Login  from "./components/Authetication/Login/Login";
 import Register  from "./components/Authetication/Register/Register";
+import UserProfile from "./pages/userProfile/userProfile";
+import Review from "./pages/review/review";
 
 function App() {
   const [spinner, setSpinner] = useState(true);
