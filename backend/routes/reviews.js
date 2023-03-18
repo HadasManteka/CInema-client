@@ -58,4 +58,13 @@ router.post('/createReview', (req, res) => {
     });
 });
 
+router.post('/deleteReview', (req, res) => {
+    const review = req.body.review
+    ReviewController.deleteReview(review).then(deletedReview => {
+        res.send(deletedReview);
+    }).catch(error => {
+        res.status(500).send({error: error.message});
+    });
+});
+
 module.exports = router;

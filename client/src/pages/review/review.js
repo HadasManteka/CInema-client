@@ -74,22 +74,39 @@ const Review = (props) => {
   }
 
   const saveReview = async () => {
-    setEditMode(false);
+    if(newDescription === "") {
+      setEditMode(false);
+    } else {
+      try {
+        (isNewReview) ?
+          await axios.post("http://localhost:4000/createReview",{review: {user_id:"63da547b1a4bd6054082faf2", movie_id: movieId, review: newDescription}} ).then(res => {
+            console.log(res);
+            history.push({pathname: `/review/${movieId}/${res.data._id}`, state: {editMode: false}});
+            window.location.reload(false);
+          }) : 
+          await axios.put(`http://localhost:4000/updateReview/${reviewId}`,{review: {user_id:"63da547b1a4bd6054082faf2", movie_id: movieId, review: newDescription}} ).then(res => {
+            setCurrentReview(res.data);
+            // window.location.reload(false);
+            console.log(res);
+          })
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+            history.replace("/error");
+        }
+      }      
+    }
+  }
 
+  const deleteReview = async() => {
     try {
-      (isNewReview) ?
-        await axios.post("http://localhost:4000/createReview",{review: {user_id:"63da547b1a4bd6054082faf2", movie_id: movieId, review: newDescription}} ).then(res => {
-          console.log(res);
-          history.push(`/review/${movieId}/${res.data._id}`);
-          window.location.reload(false);
-        }) : 
-        await axios.put(`http://localhost:4000/updateReview/${reviewId}`,{review: {user_id:"63da547b1a4bd6054082faf2", movie_id: movieId, review: newDescription}} ).then(res => {
-          setCurrentReview(res.data);
-          console.log(res);
-        })
+      await axios.post("http://localhost:4000/deleteReview",{review: currentReview._id} ).then(res => {
+        console.log(res);
+        history.push(`/`);
+        window.location.reload(false);
+      })
     } catch (error) {
       if (error.response && error.response.status === 404) {
-          history.replace("/error");
+        history.replace("/error");
       }
     }
   }
@@ -97,6 +114,8 @@ const Review = (props) => {
   useEffect(async () => {
     window.scroll(0, 0);
     await fetchData();
+    setEditMode(props.location.state.editMode);
+    console.log(props.location.state.editMode);
   }, []);
 
   return (
@@ -122,7 +141,7 @@ const Review = (props) => {
                         (!editMode) ?
                           ( <b>
                             <b className="review_button" onClick={ ()=> setEditMode(true) }><ModeEditIcon></ModeEditIcon></b>
-                            <b className="review_button"><DeleteForeverIcon></DeleteForeverIcon></b>
+                            <b className="review_button" onClick={deleteReview}><DeleteForeverIcon></DeleteForeverIcon></b>
                           </b>) :
                         (<b>
                           <b className="review_button"  onClick={saveReview}><CheckIcon></CheckIcon></b>
@@ -157,7 +176,7 @@ const Review = (props) => {
                             {currentReview.review}
                           </li>) :
                         (<div className="review_description">
-                          <textarea className="description_input" type="text" onChange={(e) => {newDescription = (e.target.value)}}></textarea>
+                          <textarea className="description_input" type="text" onChange={(e) => {newDescription = (e.target.value)}} placeholder={currentReview.review}></textarea>
                           </div>) }                      
                     </ul>
                   </div>

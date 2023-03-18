@@ -29,7 +29,7 @@ const SinglePage = () => {
     };
     
   const addReviewClick = () => {
-    history.push(`/review/${id}/new`);
+    history.push({pathname: `/review/${id}/new`, state: {editMode: true}});
   };
 
     const fetchData = async () => {

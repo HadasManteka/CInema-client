@@ -10,9 +10,9 @@ import Myloader from "react-spinners/PuffLoader";
 const UserProfile = () => {
   // const {user} = useContext(AuthContext);
   const [user, setUser] = useState({email: "noa@gmail.com", password: "123", first_name: "noa", last_name: "bouba", id: "63da547b1a4bd6054082faf2"});
-  const [allUserReviews, setAllUserReviews] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [reviewBoxArray, setReviewBoxArray] = useState([]);
   let [color, setColor] = useState("grey");
   let newFirstName = user.first_name;
   let newLastName = user.last_name;
@@ -25,12 +25,24 @@ const UserProfile = () => {
   
   const fetchReviews = async() => {      
     try {
-      const { data } = await axios.get(` 
-      http://localhost:4000/getMovies`);
-      console.log(data.slice(0, 7));
-      const filter = data.slice(0, 7);
-      setAllUserReviews(filter);
+      const { data } = await axios.get(`http://localhost:4000/getReviewByUserId/${user.id}`);
+      console.log(data);
+      data.map(async review => {
+        await addMovieReviewToArray(review.movie_id, review);
+      });
       setIsLoading(false);
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const addMovieReviewToArray = async(movieId, review) => {
+    try {
+      console.log(movieId)
+      const { data } = await axios.get(`http://localhost:4000/getMovieById/${movieId}`);
+      setReviewBoxArray(reviewBoxArray => [...reviewBoxArray, {description: review.review, img: data.img_url, title: data.name, movieId, reviewId: review._id}]);
+      console.log(reviewBoxArray);
 
     } catch (error) {
       console.error(error);
@@ -39,7 +51,6 @@ const UserProfile = () => {
 
   const onSaveUser = async () => {
     setEditMode(false);
-    alert(newFirstName)
 
     try {
         await axios.put(`http://localhost:4000/updateUser/${user.id}`,{first_name:newFirstName, last_name: newLastName, email: newEmail, is_admin: user.is_admin}).then(res => {
@@ -63,9 +74,6 @@ const UserProfile = () => {
     window.scroll(0, 0);
 
     await fetchReviews();
-    return () => {
-      setAllUserReviews();
-    };
   }, []);
 
   return (
@@ -86,17 +94,17 @@ const UserProfile = () => {
                 <button className="editButton" onClick={ ()=> setEditMode(true) }>Edit User</button>
               </div>) :
               (<div>
-                <textarea rows={1} className="userFirstName_edit" defaultValue={user.first_name} onChange={(e) => {newFirstName = (e.target.value)}}></textarea>
-                <textarea rows={1} className="userLastName_edit" defaultValue={user.last_name} onChange={(e) => {newLastName = (e.target.value)}}></textarea>
-                <textarea className="userEmail_edit" defaultValue={user.email} onChange={(e) => {newEmail = (e.target.value)}}></textarea>
+                <textarea rows={1} className="userFirstName_edit" placeholder={user.first_name} onChange={(e) => {newFirstName = (e.target.value)}}></textarea>
+                <textarea rows={1} className="userLastName_edit" placeholder={user.last_name} onChange={(e) => {newLastName = (e.target.value)}}></textarea>
+                <textarea className="userEmail_edit" placeholder={user.email} onChange={(e) => {newEmail = (e.target.value)}}></textarea>
                 <button className="editButton" onClick={onSaveUser}>Save User</button>
               </div>) 
           }
         </div>
         <div className="reviews">
           {
-            allUserReviews.map((review) => {
-              return <Review logo={review.img_url} title={review.name} description={review.release_date}></Review>
+            reviewBoxArray.map((review) => {
+              return <Review logo={review.img} title={review.title} description={review.description} movieId={review.movieId} reviewId={review.reviewId}></Review>
             })
           }
           
