@@ -26,9 +26,7 @@ const wsServer = new WebSocketServer({ server: httpServer });
 const clients = {};
 wsServer.on('connection', function (connection, req) {
   console.log(`rRecieved a new connection.`);
-  
   let userId = parse(req.url, true).query.userId;
-
   if (userId != 'undefined') { 
     clients[userId] = connection;
     Object.keys(clients).forEach(user => { 
@@ -40,13 +38,12 @@ wsServer.on('connection', function (connection, req) {
 
 app.post("/logout", async (req, res) => {
   let userId = parse(req.url, true).query.userId;
-
   if (userId != 'undefined') { 
     delete clients[userId];
     Object.keys(clients).forEach(user => { 
       clients[user].send(Object.keys(clients).length);
     });
-    console.log(`${userId} connected.`);
+    console.log(`${userId} disconnected.`);
   };
 });
 
