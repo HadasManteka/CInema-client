@@ -1,34 +1,103 @@
 import "./review.css";
+import axios from "axios";
 import MainNav from "../../components/MainNavbar/MainNav";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory, useParams } from 'react-router-dom';
 import Myloader from "react-spinners/ClipLoader";
 import CheckIcon from '@mui/icons-material/Check';
+import { AuthContext } from "../../components/context/UserContext";
 
 const Review = (props) => {
 
+  const [content, setContent] = useState();
+  const [currentReview, setCurrentReview] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [isNewReview, setIsNewReview] = useState(false);
+  const [reviewAuthor, setReviewAuthor] = useState({first_name: "Noa", last_name: "Bouba"});
+  const {getCurrentUser} = useContext(AuthContext);
   let [color, setColor] = useState("grey");
-  let autour = true;
   let newDescription = "";
-  const movieTitle = useParams().movie;
+  const movieId = useParams().movieId;
+  const reviewId = useParams().reviewId;
+  const history = useHistory();
+  // let isNewReview = false;
   
   const fetchData = async () => {
-      setIsLoading(true);
+    try {
+        const { data } = await axios.get(`http://localhost:4000/getMovieById/${movieId}`);
+        console.log(data)
+        setContent(data);
+        await getReviewDetails();
+        setIsLoading(true);
+    } catch (error) {
+        if (error.response && error.response.status === 404) {
+            history.replace("/error");
+        }
+    }
   };
 
-  const saveDescription = () => {
-    alert(newDescription);
+  const getReviewDetails = async () => {
+    if(reviewId === "new") {
+      setIsNewReview(true);
+      setEditMode(true);
+      setReviewAuthor({first_name: "Noa", last_name: "Bouba"});
+      // setReviewAuthor(getCurrentUser());
+    } else {
+      try {
+        const { data } = await axios.get(`http://localhost:4000/getReviewById/${reviewId}`);
+        console.log(data)
+        setCurrentReview(data);
+        await getAuthorDetails();
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+            history.replace("/error");
+        }
+      }
+    }
+  }
+
+  const getAuthorDetails = async () => {
+    if(reviewId != "new") {
+      try {
+        const { data } = await axios.get(`http://localhost:4000/getUserById/${currentReview.user_id}`);
+        console.log(data)
+        setReviewAuthor(data);
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+            history.replace("/error");
+        }
+      }
+    }
+  }
+
+  const saveReview = async () => {
     setEditMode(false);
+
+    try {
+      (isNewReview) ?
+        await axios.post("http://localhost:4000/createReview",{review: {user_id:"63da547b1a4bd6054082faf2", movie_id: movieId, review: newDescription}} ).then(res => {
+          console.log(res);
+          history.push(`/review/${movieId}/${res.data._id}`);
+          window.location.reload(false);
+        }) : 
+        await axios.put(`http://localhost:4000/updateReview/${reviewId}`,{review: {user_id:"63da547b1a4bd6054082faf2", movie_id: movieId, review: newDescription}} ).then(res => {
+          setCurrentReview(res.data);
+          console.log(res);
+        })
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+          history.replace("/error");
+      }
+    }
   }
   
-  useEffect(() => {
+  useEffect(async () => {
     window.scroll(0, 0);
-    fetchData();
-  }, [movieTitle]);
+    await fetchData();
+  }, []);
 
   return (
     <>
@@ -39,14 +108,15 @@ const Review = (props) => {
           <div className="review_open__modal">
             <img
               className="poster__img"
-              src="https://image.tmdb.org/t/p/w500/qi9r5xBgcc9KTxlOLjssEbDgO0J.jpg"
+              src={content.img_url}
               alt=""
             />
 
             <div className="open__detailsPage">
-                <h3>Plane
+                <h3>{content.name}
                 {
-                  (autour) ? 
+                  (true) ? 
+                  // (getCurrentUser().id === reviewAuthor.id) ? 
                     (<b className="autour_buttons">
                       {
                         (!editMode) ?
@@ -55,7 +125,7 @@ const Review = (props) => {
                             <b className="review_button"><DeleteForeverIcon></DeleteForeverIcon></b>
                           </b>) :
                         (<b>
-                          <b className="review_button"  onClick={saveDescription}><CheckIcon></CheckIcon></b>
+                          <b className="review_button"  onClick={saveReview}><CheckIcon></CheckIcon></b>
                         </b>) }
                       </b>) :
                     (<b></b>) 
@@ -69,8 +139,7 @@ const Review = (props) => {
                     className="year"
                   >
                     {(
-                      "2023-01-12T00:00:00.000+00:00" ||
-                      // content.release_date ||
+                      content.release_date ||
                       "-----"
                     ).substring(0, 4)}{" "}
                     
@@ -79,21 +148,17 @@ const Review = (props) => {
                   <div className="other_lists">
                     <ul>
                       <li>
-                        REVIEW BY: <b className="review_by">{"Noa"}</b>
+                        REVIEW BY: <b className="review_by">{reviewAuthor.first_name + " " + reviewAuthor.last_name}</b>
                       </li>
                       
                       {
                         (!editMode) ?
                           ( <li className="review_description">
-                            {"After a heroic job of successfully landing his storm-damaged aircraft in a war zone, a fearless pilot finds himself between the agendas of multiple militias planning to take the plane and its passengers hostage."}
+                            {currentReview.review}
                           </li>) :
                         (<div className="review_description">
                           <textarea className="description_input" type="text" onChange={(e) => {newDescription = (e.target.value)}}></textarea>
-                          </div>) }
-
-                      <li>
-                        LAST UPDATED: <span>{"18/03/2023"}</span>
-                      </li>
+                          </div>) }                      
                     </ul>
                   </div>
                 </div>

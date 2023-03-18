@@ -20,7 +20,7 @@ const Routes = () => {
           <Route path="/all-movies" component={Movies} />
           <Route path="/Statistics" component={MovieGraph} />
           <Route path="/userProfile" component={UserProfile} />
-          <Route path="/review/:movie/:reviewId" component={Review} />
+          <Route path="/review/:movieId/:reviewId" component={Review} />
           <Route path="/movie/:id" children={<SinglePage />} />
           <Redirect to="/error" />
         </Switch>
