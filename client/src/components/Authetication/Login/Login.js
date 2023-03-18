@@ -109,7 +109,7 @@ const Login = () => {
                   autoComplete="off"
                 >
                   <div className="sign_name">
-                    <h5>Username</h5>
+                    <h5>Email</h5>
                     <TextField
                       sx={{}}
                       fullWidth
