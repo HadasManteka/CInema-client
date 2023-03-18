@@ -19,7 +19,6 @@ const Home = () => {
     try {
       const { data } = await axios.get(` 
       http://localhost:4000/getMovies`);
-      console.log(data.slice(0, 7));
       const filter = data.slice(0, 7);
       setAllContent(filter);
       setIsLoading(true);

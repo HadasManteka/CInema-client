@@ -15,7 +15,7 @@ const PlayArrowRoundedIcon = styled(MuiPlayArrowRoundedIcon)(`
 `);
 const SingleData = ({
   img_url,
-  id,
+  _id,
   rating,
   mediaType,
   media_type,
@@ -23,7 +23,7 @@ const SingleData = ({
   const history = useHistory();
 
   const handleClick = () => {
-    history.push(`/${mediaType || media_type}/${id}`);
+    history.push(`/${mediaType || media_type}/${_id}`);
   };
   const setVoteClass = (vote) => {
     if (vote >= 8) {
