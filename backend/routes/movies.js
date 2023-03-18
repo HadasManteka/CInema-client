@@ -27,7 +27,7 @@ router.get('/getMoviesGroupedByYear', (req, res) => {
     });
 });
 
-router.post('/getMovieById/:id', (req, res) => {
+router.get('/getMovieById/:id', (req, res) => {
     const id = req.params.id;
     MovieController.getMovieById(id).then(movie => {
         res.send(movie);
