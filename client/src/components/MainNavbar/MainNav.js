@@ -20,7 +20,7 @@ $(function () {
 
 const MainNav = () => {
   let [displayOnline, setDisplayOnline] = useState("0");
-  const {getCurrentUser, logOut, isAdmin} = useContext(AuthContext);
+  const {getCurrentUser, logOut, isAdmin, setAdmin} = useContext(AuthContext);
   const WS_URL = 'ws://127.0.0.1:4000';
 
   const getUser = () => {
@@ -30,6 +30,7 @@ const MainNav = () => {
   const disconnect = () => {
     axios.post("http://localhost:4000/logout" + '?userId=' + getUser()?.uid)
     logOut();
+    setAdmin(false);
   }
 
   useWebSocket(WS_URL + '?userId=' + getUser()?.uid, {

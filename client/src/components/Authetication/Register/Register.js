@@ -14,7 +14,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
-  const {createUser} = useContext(AuthContext);
+  const {createUser, setAdmin} = useContext(AuthContext);
   const history = useHistory();
 
   const [values, setValues] = useState({
@@ -93,7 +93,9 @@ const Register = () => {
         } else {
           createUser(values.email, values.password)
             .then(result =>{
-              createUserDB(values.name, values.name, values.email, false);
+              createUserDB(values.name, values.name, values.email, false).then(res=> {
+                setAdmin(res.data[0]?.is_admin);
+              })
             })
             .catch(error =>{
               console.log(error);
