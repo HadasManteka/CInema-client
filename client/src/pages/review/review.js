@@ -36,8 +36,7 @@ const Review = (props) => {
     {isLoading ? (
       <>
         <div>
-          <div className="open__modal">
-
+          <div className="review_open__modal">
             <img
               className="poster__img"
               src="https://image.tmdb.org/t/p/w500/qi9r5xBgcc9KTxlOLjssEbDgO0J.jpg"

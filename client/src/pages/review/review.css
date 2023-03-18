@@ -1,4 +1,4 @@
-.open__modal {
+.review_open__modal {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -13,7 +13,7 @@
     font-size: 1.2rem;
     text-transform: capitalize !important;
   }
-  .open__modal .poster__img {
+  .review_open__modal .poster__img {
     z-index: 1000;
     z-index: 1000;
     height: 420px;
@@ -38,7 +38,7 @@
     z-index: 1000 !important;
     font-size: 2.2rem;
   }
-  .open__modal::after {
+  .review_open__modal::after {
     content: "";
     position: absolute;
     /* background: rgba(0, 0, 0, 0.6); */
@@ -80,12 +80,12 @@
   }
   
   @media screen and (max-width: 1500px) {
-    .open__modal {
+    .review_open__modal {
       height: 680px !important;
     }
   }
   @media screen and (max-width: 1236px) {
-    .open__modal {
+    .review_open__modal {
       height: 800px !important;
     }
   }
@@ -93,7 +93,7 @@
     .poster__img {
       display: none;
     }
-    .open__modal {
+    .review_open__modal {
       height: 900px !important;
       justify-content: center;
     }
@@ -101,7 +101,7 @@
       flex-basis: 100%;
       margin: 0 30px;
     }
-    .open__modal::after {
+    .review_open__modal::after {
       background-image: linear-gradient(
         to right,
         rgb(11, 11, 58) 200px,
@@ -117,7 +117,7 @@
   @media screen and (max-width: 463px) {
     .poster__img {
     }
-    .open__modal {
+    .review_open__modal {
       height: 900px !important;
     }
     .open__detailsPage h3 {
@@ -125,7 +125,7 @@
     }
   }
   @media screen and (max-width: 340px) {
-    .open__modal {
+    .review_open__modal {
       height: 900px !important;
     }
   }
@@ -162,13 +162,13 @@
   }
 
   .review_description {
-    height: 270px;
+    height: 260px;
     margin-top: 2%;
     margin-bottom: 2%;
   }
 
   .description_input {
-    height: 270px;
+    height: 260px;
     width: 90%;
     background: transparent;
     border: 2px white solid;
