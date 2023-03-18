@@ -1,0 +1,9 @@
+.ListContentRow {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 60px;
+    margin-left: 60px;
+}
+.spacer {
+  height: 80px;
+}

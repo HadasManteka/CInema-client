@@ -1,6 +1,6 @@
 // import Treading from "../../pages/TreadingShows/Treading";
 import Home from "../../pages/Home/Home";
-// import Movies from "../../pages/Movies/Movies";
+import Movies from "../../pages/Movies/Movies";
 // import TvSeries from "../../pages/TvSeries/TvSeries";
 import { Redirect, Route, Switch } from "react-router-dom";
 // import SinglePage from "../../components/SingleContentPage/SinglePage";
@@ -18,7 +18,7 @@ const Routes = () => {
       <div className="App">
         <Switch>
           <Route exact path="/" component={Home} />
-          {/* <Route path="/all-movies" component={Movies} /> */}
+          <Route path="/all-movies" component={Movies} />
           <Route path="/Statistics" component={MovieGraph} />
           <Route path="/userProfile" component={UserProfile} />
           <Redirect to="/error" />
