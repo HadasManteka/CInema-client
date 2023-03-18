@@ -9,7 +9,7 @@ import NotFound from "./pages/Errors/NotFound";
 import Login  from "./components/Authetication/Login/Login";
 import Register  from "./components/Authetication/Register/Register";
 import UserProfile from "./pages/userProfile/userProfile";
-import Review from "./components/review/review";
+import Review from "./pages/review/review";
 
 function App() {
   const [spinner, setSpinner] = useState(true);
@@ -27,7 +27,7 @@ function App() {
           <Switch>
             <Route exact path="/error" component={NotFound} />
             <Route path="/userProfile" component={UserProfile} exact />
-            <Route path="/:movie/:reviewId" component={Review} exact />
+            <Route path="/review/:movie/:reviewId" component={Review} exact />
             <Route path="/login" component={Login} exact />
             <Route path="/register" component={Register} exact />
             <Route path="/" component={Routes} />

@@ -11,7 +11,7 @@ const ReviewBox = (props) => {
   const history = useHistory()
 
   const navigateReview = () => {
-    history.push("/best movie/123");
+    history.push("/review/best movie/123");
   }
   
   return (

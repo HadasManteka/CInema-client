@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require('cors'); 
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const movies = require("./controllers/movies");
 mongoose.connect("mongodb+srv://movies-atlas-db:yjP8NyM9kh4GX7H@cluster0.kdvj33y.mongodb.net/?retryWrites=true&w=majority")
 
 app.use(express.json());
@@ -18,6 +19,10 @@ app.listen(4000, () => {
 app.use('/', require('./routes/movies'));
 app.use('/', require('./routes/reviews'));
 app.use('/', require('./routes/users'));
+
+app.get("/allMovies", (req, res) => {
+  res.send(movies.getMovies());
+});
 
 app.get('*', (req, res) => {
   res.statusCode = 404
