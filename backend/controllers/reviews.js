@@ -19,7 +19,7 @@ const getReviewByMovieId = async (movie_id) => {
     return await Review.find({ movie_id });
 };
 
-const updateReview = async (user) => {
+const updateReview = async (review) => {
     const filter = { _id: review.id };
     const update = { ...review };
     const updatedReview = await Review.findOneAndUpdate(filter, update, {
@@ -32,11 +32,16 @@ const createReview = async (review) => {
     return await Review.create(review);
 };
 
+const deleteReview = async (reviewId) => {
+    return await Review.findByIdAndDelete(reviewId);
+};
+
 module.exports = {
     getReview,
     getReviewById,
     getReviewByUserId,
     getReviewByMovieId,
     updateReview,
-    createReview
+    createReview,
+    deleteReview
 }

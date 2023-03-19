@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import HomeIcon from "../../images/home-icon.svg";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import MovieIcon from "../../images/movie-icon.svg";
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import TheatersIcon from "../../images/series-icon.svg";
 import $ from "jquery";
 import {AuthContext} from "../context/UserContext";
@@ -93,6 +94,11 @@ const MainNav = () => {
                   alt=""
                 />
                 Movies
+              </Link>
+            </li>
+            <li className="nav-item  nav__link">
+              <Link className="nav-link" to="/userProfile">
+                <PersonOutlineIcon></PersonOutlineIcon> User Profile
               </Link>
             </li>
           </ul>
