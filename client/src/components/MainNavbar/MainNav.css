@@ -100,23 +100,6 @@
   margin-top: 20px;
   border-radius: 3px;
 }
-
-a:hover, a:visited, a:link, a:active {
-  text-decoration: none !important;
-}
-
-.user-profile-btn {
-  all: unset;
-  font-size: 16px;
-  margin-right: 1em;
-}
-
-.user-profile-btn:hover {
-  text-shadow: 2px 2px 2px #ffffff69;
-  color: #fff;
-  /* transform: scale(1.1); */
-}
-
 @media (max-width: 890px) {
   .navbar {
     display: flex !important;

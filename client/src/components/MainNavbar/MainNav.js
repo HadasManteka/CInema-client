@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import HomeIcon from "../../images/home-icon.svg";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import MovieIcon from "../../images/movie-icon.svg";
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import TheatersIcon from "../../images/series-icon.svg";
 import $ from "jquery";
 import {AuthContext} from "../context/UserContext";
@@ -95,6 +96,11 @@ const MainNav = () => {
                 Movies
               </Link>
             </li>
+            <li className="nav-item  nav__link">
+              <Link className="nav-link" to="/userProfile">
+                <PersonOutlineIcon></PersonOutlineIcon> User Profile
+              </Link>
+            </li>
           </ul>
 
           {
@@ -108,10 +114,15 @@ const MainNav = () => {
                 </Link>
               </div>
             </div>) : 
-            (<div className="user_profie_btn">
-                <Link to="/userProfile">
-                  <button className="user-profile-btn">User Profile</button>
+            (<div className="all__right">
+              hello, {getUser().email}
+              <tr></tr>
+              Live connected users: {displayOnline} 
+              <div className="btn-login">
+                <Link to="/login">
+                  <button className=" login-btn" onClick={disconnect}>logout</button>
                 </Link>
+              </div>
             </div>)
           }
         </div>
