@@ -10,11 +10,11 @@ const auth = getAuth(app);
 const UserContext = ({children}) => {
     // const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
+    const [isAdmin, setAdmin] = useState(false);
     const googleProvider = new GoogleAuthProvider();
 
     const createUser = (email, password, name) =>{
         return createUserWithEmailAndPassword(auth, email, password, name);
-
     }
 
     const signIn = (email, password)=>{
@@ -49,10 +49,10 @@ const UserContext = ({children}) => {
         }
     }, [])
 
-    const authInfo = {loading, getCurrentUser, createUser, signIn, logOut, signInWithGoogle, signUpWithGoogle}
+    const authInfo = {loading, isAdmin, setAdmin, getCurrentUser, createUser, signIn, logOut, signInWithGoogle, signUpWithGoogle}
 
     return (
-        <AuthContext.Provider value={authInfo}>
+        <AuthContext.Provider key="authContext" value={authInfo}>
             {children}
         </AuthContext.Provider>
     );

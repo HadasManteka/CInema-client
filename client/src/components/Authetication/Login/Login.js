@@ -1,6 +1,5 @@
 import "./Login.css";
 import TextField from "@mui/material/TextField";
-import GoogleIcon from "../../../images/google.svg";
 import Box from "@mui/material/Box";
 import React, { useState, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
@@ -11,16 +10,18 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { AuthContext } from '../../context/UserContext';
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [values, setValues] = useState({
     password: "",
     email:"",
+    validMessage:"",
     showPassword: false,
   });
 
   const history = useHistory();
-  const {signIn} = useContext(AuthContext);
+  const {signIn, setAdmin} = useContext(AuthContext);
   
   const navigateHome = () => {
     history.push("/");
@@ -44,38 +45,28 @@ const Login = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  
-  // const navigate = useNavigate
-
-  // const handleGoogleSignIn = () =>{
-      
-    //   signInWithGoogle()
-    //   .then(result =>{
-    //     const user = result.user;
-    //     console.log(user);
-    //   })
-    //   .catch(error => console.log(error))
-    // }
     
   const handleSubmit = event =>{
       event.preventDefault();
-      // const email = form.email.value;
-      // const password = form.password.value;
-      // console.log(email, password);
 
       signIn(values.email, values.password)
       .then(result =>{
         const user = result.user;
         console.log(user);
-        values.email = "";
-        values.password="";
-        navigateHome();
-        // form.reset();
-        // navigate('/');
+        
+
+        axios.get("http://localhost:4000/getUserByEmail/" + values.email).then(res => {
+          setAdmin(res.data[0]?.is_admin);
+          values.email = "";
+          values.password="";
+          navigateHome();
+        })
       })
       .catch(error => {
-        console.error(error);
+        setValues({
+          ...values,
+          validMessage: "wrong credentials",
+        });
       })
     }
   return (
@@ -88,17 +79,6 @@ const Login = () => {
                 <h2>Connect to your account</h2>
               </div>
               <div className="login__btns">
-                {/* <div className="google__login">
-                  <button className="google">
-                    <img src={GoogleIcon} width="20" alt="" /> Continue with
-                    Google
-                  </button>
-                </div> */}
-                <div className="or__line">
-                  {/* <p className="span-h"></p>
-                  <p className="span-p"> or</p>
-                  <p className="span-k"></p> */}
-                </div>
                 <Box
                   component="form"
                   noValidate
@@ -129,7 +109,7 @@ const Login = () => {
                   autoComplete="off"
                 >
                   <div className="sign_name">
-                    <h5>Username</h5>
+                    <h5>Email</h5>
                     <TextField
                       sx={{}}
                       fullWidth
@@ -171,6 +151,9 @@ const Login = () => {
                   </div>
                 </Box>
                 <div className="new__acc">
+                <div style={{color:"red"}}>
+                  {values.validMessage}
+                    </div>
                   <button type="submit" onClick={handleSubmit}>Login here</button>
                   <div className="register_btn" onClick={navigateRegister}>
                     Dont have an Account? <b>Register</b>

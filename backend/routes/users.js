@@ -19,6 +19,24 @@ router.get('/getUserById/:id', (req, res) => {
     });
 });
 
+router.get('/getUserByEmail/:email', (req, res) => {
+    const email = req.params.email;
+    UserController.getUserByEmail(email).then(user => {
+        res.send(user);
+    }).catch(error => {
+        res.status(500).send({error: error.message});
+    });
+});
+
+router.get('/doesEmailExists/:email', (req, res) => {
+    const email = req.params.email;
+    UserController.getUserByEmail(email).then(user => {
+        res.send(user.length > 0);
+    }).catch(error => {
+        res.status(500).send({error: error.message});
+    });
+});
+
 router.put('/updateUser/:id', (req, res) => {
     const id = req.params.id;
     const user = req.body;

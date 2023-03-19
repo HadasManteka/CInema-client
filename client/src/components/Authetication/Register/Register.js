@@ -14,13 +14,14 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
-  const {createUser, signInWithGoogle} = useContext(AuthContext);
+  const {createUser, setAdmin} = useContext(AuthContext);
   const history = useHistory();
 
   const [values, setValues] = useState({
     password: "",
     email:"",
     name:"",
+    validMessage:"",
     showPassword: false,
   });
 
@@ -47,20 +48,67 @@ const Register = () => {
     event.preventDefault();
   };
 
+  const validation = () => {
+    let valid = true;  
+    let message = "";
+
+    let emailValid = values.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+      if(!emailValid) {
+         message= 'email is invalid';
+         valid = false;
+      }
+
+      let passwordValid = values.password.length >= 6;
+      if(!passwordValid) {
+        message = 'password must be least 6 chars';
+        valid = false;
+      }
+      
+      let nameValid = values.name != "";
+      if(!nameValid) {
+        message = 'name is required';
+        valid = false;
+      }
+
+      setValues({
+        ...values,
+        validMessage: message,
+      });
+
+      return valid;
+  }
+
   const handleSubmit = event =>{
       event.preventDefault();
 
-      createUser(values.email, values.password)
-      .then(result =>{
-        createUserDB(values.name, values.name, values.email, false);
-      })
-      .catch(error =>{
-        console.error(error)
-      })
+      if (validation()) {
+
+        axios.get("http://localhost:4000/doesEmailExists/" + values.email).then(isExists=>{
+          
+        if (isExists.data) {
+          setValues({
+            ...values,
+            validMessage: "Email already exists",
+          });
+        } else {
+          createUser(values.email, values.password)
+            .then(result =>{
+              createUserDB(values.name, values.name, values.email, false).then(res=> {
+                setAdmin(res.data[0]?.is_admin);
+              })
+            })
+            .catch(error =>{
+              console.log(error);
+            })
+          }
+      });
+        
+      }
     }
 
-    const createUserDB = (first_name, last_name, email, is_admin) => {
-    axios.post("http://localhost:4000/createUser",{user: {first_name, last_name, email, is_admin}} ).then(res => {
+  const createUserDB = (first_name, last_name, email, is_admin) => {
+    axios.post("http://localhost:4000/createUser",{user: {first_name, last_name, email, is_admin}})
+    .then(res => {
       console.log(res);
       values.email = "";
       values.password="";
@@ -78,16 +126,7 @@ const Register = () => {
                 <h2>Register to the best cinema</h2>
               </div>
               <div className="login__btns">
-                {/* <div className="google__login">
-                  <button className="google">
-                    <img src={GoogleIcon} width="20" alt="" /> Continue with
-                    Google
-                  </button>
-                </div> */}
                 <div className="or__line">
-                  {/* <p className="span-h"></p>
-                  <p className="span-p"> ---</p>
-                  <p className="span-k"></p> */}
                 </div>
                 <Box
                   component="form"
@@ -174,6 +213,9 @@ const Register = () => {
                   </div>
                 </Box>
                 <div className="new__acc">
+                  <div style={{color:"red"}}>
+                  {values.validMessage}
+                    </div>
                   <button type="submit" onClick={handleSubmit}>Register here</button>
                   <div className="register_btn" onClick={navigateLogin}>
                     Already have an Account? <b>Login</b>
