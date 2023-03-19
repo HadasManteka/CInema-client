@@ -1,13 +1,12 @@
 import "./reviewBox.css";
 import axios from "axios";
-import React, { useState, useContext } from "react";
+import React from "react";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { useHistory } from "react-router-dom";
 
 const ReviewBox = (props) => {
   let autour = true; 
-  // let autour = props.autour;
 
   const history = useHistory()
 

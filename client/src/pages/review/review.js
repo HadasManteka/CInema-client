@@ -16,19 +16,34 @@ const Review = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [isNewReview, setIsNewReview] = useState(false);
-  const [reviewAuthor, setReviewAuthor] = useState({first_name: "Noa", last_name: "Bouba"});
+  const [isAuthor, setIsAuthor] = useState(false);
+  const [reviewAuthor, setReviewAuthor] = useState({});
   const {getCurrentUser} = useContext(AuthContext);
-  let [color, setColor] = useState("grey");
+  const [color, setColor] = useState("grey");
   let newDescription = "";
   const movieId = useParams().movieId;
   const reviewId = useParams().reviewId;
   const history = useHistory();
-  // let isNewReview = false;
   
+  const setNewReview = async() => {
+    setIsNewReview(true);
+    setEditMode(true);
+    setReviewAuthor(await getUser());
+  }
+
+  const getUser = async() => {
+    try {
+      const { data } = await axios.get(`http://localhost:4000/getUserByEmail/${getCurrentUser().email}`);
+      return (data[0]);
+      
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const fetchData = async () => {
     try {
         const { data } = await axios.get(`http://localhost:4000/getMovieById/${movieId}`);
-        console.log(data)
         setContent(data);
         await getReviewDetails();
         setIsLoading(true);
@@ -41,16 +56,14 @@ const Review = (props) => {
 
   const getReviewDetails = async () => {
     if(reviewId === "new") {
-      setIsNewReview(true);
-      setEditMode(true);
-      setReviewAuthor({first_name: "Noa", last_name: "Bouba"});
-      // setReviewAuthor(getCurrentUser());
+      await setNewReview();
     } else {
       try {
         const { data } = await axios.get(`http://localhost:4000/getReviewById/${reviewId}`);
-        console.log(data)
         setCurrentReview(data);
-        await getAuthorDetails();
+        console.log(data.user_id);
+        let author = await getAuthorDetails(data.user_id);
+        setIsAuthor(getCurrentUser().email === author.email);
       } catch (error) {
         if (error.response && error.response.status === 404) {
             history.replace("/error");
@@ -59,12 +72,12 @@ const Review = (props) => {
     }
   }
 
-  const getAuthorDetails = async () => {
+  const getAuthorDetails = async (id) => {
     if(reviewId != "new") {
       try {
-        const { data } = await axios.get(`http://localhost:4000/getUserById/${currentReview.user_id}`);
-        console.log(data)
+        const { data } = await axios.get(`http://localhost:4000/getUserById/${id}`);
         setReviewAuthor(data);
+        return data;
       } catch (error) {
         if (error.response && error.response.status === 404) {
             history.replace("/error");
@@ -79,15 +92,12 @@ const Review = (props) => {
     } else {
       try {
         (isNewReview) ?
-          await axios.post("http://localhost:4000/createReview",{review: {user_id:"63da547b1a4bd6054082faf2", movie_id: movieId, review: newDescription}} ).then(res => {
-            console.log(res);
+          await axios.post("http://localhost:4000/createReview",{review: {user_id: reviewAuthor._id, movie_id: movieId, review: newDescription}} ).then(res => {
             history.push({pathname: `/review/${movieId}/${res.data._id}`, state: {editMode: false}});
             window.location.reload(false);
           }) : 
-          await axios.put(`http://localhost:4000/updateReview/${reviewId}`,{review: {user_id:"63da547b1a4bd6054082faf2", movie_id: movieId, review: newDescription}} ).then(res => {
+          await axios.put(`http://localhost:4000/updateReview/${reviewId}`,{review: {user_id: reviewAuthor._id, movie_id: movieId, review: newDescription}} ).then(res => {
             setCurrentReview(res.data);
-            // window.location.reload(false);
-            console.log(res);
           })
       } catch (error) {
         if (error.response && error.response.status === 404) {
@@ -100,7 +110,6 @@ const Review = (props) => {
   const deleteReview = async() => {
     try {
       await axios.post("http://localhost:4000/deleteReview",{review: currentReview._id} ).then(res => {
-        console.log(res);
         history.push(`/`);
         window.location.reload(false);
       })
@@ -113,9 +122,8 @@ const Review = (props) => {
   
   useEffect(async () => {
     window.scroll(0, 0);
-    await fetchData();
     setEditMode(props.location.state.editMode);
-    console.log(props.location.state.editMode);
+    await fetchData();
   }, []);
 
   return (
@@ -134,8 +142,7 @@ const Review = (props) => {
             <div className="open__detailsPage">
                 <h3>{content.name}
                 {
-                  (true) ? 
-                  // (getCurrentUser().id === reviewAuthor.id) ? 
+                  (isAuthor) ? 
                     (<b className="autour_buttons">
                       {
                         (!editMode) ?
@@ -167,7 +174,7 @@ const Review = (props) => {
                   <div className="other_lists">
                     <ul>
                       <li>
-                        REVIEW BY: <b className="review_by">{reviewAuthor.first_name + " " + reviewAuthor.last_name}</b>
+                        REVIEW BY: <b className="review_by">{reviewAuthor.first_name}</b>
                       </li>
                       
                       {
@@ -176,7 +183,7 @@ const Review = (props) => {
                             {currentReview.review}
                           </li>) :
                         (<div className="review_description">
-                          <textarea className="description_input" type="text" onChange={(e) => {newDescription = (e.target.value)}} placeholder={currentReview.review}></textarea>
+                          <textarea className="description_input" type="text" onChange={(e) => {newDescription = (e.target.value)}} placeholder={(currentReview) ? currentReview.review : ""}></textarea>
                           </div>) }                      
                     </ul>
                   </div>

@@ -26,10 +26,11 @@ const Routes = () => {
           <Route path="/userProfile" component={UserProfile} />
           <Route path="/review/:movieId/:reviewId" component={Review} />
           
+          <Route path="/movie/:id" children={<SinglePage />} />
+          
           {isAdmin ? 
           <Route path="/Statistics" component={MovieGraph} /> : <Redirect to="/error" />
           }
-          <Route path="/movie/:id" children={<SinglePage />} />
           <Redirect to="/error" />
         </Switch>
       </div>

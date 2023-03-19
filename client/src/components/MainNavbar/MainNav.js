@@ -24,8 +24,7 @@ const MainNav = () => {
   const WS_URL = 'ws://127.0.0.1:4000';
 
   const getUser = () => {
-    // return getCurrentUser();
-    return {email: "noa@gmail.com", password: "123", name: "noa"}
+    return getCurrentUser();
   }
 
   const disconnect = () => {
@@ -110,19 +109,9 @@ const MainNav = () => {
               </div>
             </div>) : 
             (<div className="user_profie_btn">
-              {/* hello, {getUser().name} */}
                 <Link to="/userProfile">
                   <button className="user-profile-btn">User Profile</button>
                 </Link>
-            {/* (<div className="all__right">
-              hello, {getUser().email}
-              <tr></tr>
-              Live connected users: {displayOnline} 
-              <div className="btn-login">
-                <Link to="/login">
-                  <button className=" login-btn" onClick={disconnect}>logout</button>
-                </Link>
-              </div> */}
             </div>)
           }
         </div>
