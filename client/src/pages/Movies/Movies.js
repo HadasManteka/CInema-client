@@ -6,14 +6,10 @@ import "./Movies.css";
 
 const Movies = () => {
     const [treadingContent, setTreadingContent] = useState([]);
-    const [page, setPage] = useState(1);
-    const [numOfPages, setNumOfPages] = useState();
-    const [searchTerm, setSearchTerm] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [rating, setRating] = useState(5);
     const [sortBy, setSortBy] = useState(false);
     const [lable, setLable] = useState("");
-    // eslint-disable-next-line
 
     const chunkArray = (array, chunkSize) => {
         const results = [];
@@ -38,14 +34,12 @@ const Movies = () => {
         }
     };
     
-    // fetch Movies from TMDB
     const fetchMovieApi = async () => {
         try {
             const { data } = await axios.get(
                 `http://localhost:4000/getMovies`
             );
             setTreadingContent(data);
-            setNumOfPages(100);
             setIsLoading(true);
         } catch (error) {
             console.log(error);
@@ -57,7 +51,6 @@ const Movies = () => {
         const SEARCH_API = `http://localhost:4000/getMoviesWithFilter/${rating}?sort=${sortBy}&searchString=${lable}`;
         const { data } = await axios.get(SEARCH_API);
         setTreadingContent(data);
-        setNumOfPages(data.total_pages);
         setIsLoading(true);
     };
 
@@ -79,7 +72,7 @@ const Movies = () => {
             setTreadingContent();
         };
         // eslint-disable-next-line
-    }, [page, isLoading]);
+    }, [isLoading]);
 
     useEffect(() => {
         fetchSearchApi();
