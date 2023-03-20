@@ -46,7 +46,7 @@ const UserProfile = () => {
   const addMovieReviewToArray = async(movieId, review) => {
     try {
       const { data } = await axios.get(`http://localhost:4000/getMovieById/${movieId}`);
-      setReviewBoxArray(reviewBoxArray => [...reviewBoxArray, {description: review.review, img: data.img_url, title: data.name, movieId, reviewId: review._id}]);
+      setReviewBoxArray(reviewBoxArray => [...reviewBoxArray, {description: review.review, img: data.img_url, title: data.name, movieId, reviewId: review._id, authorId: review.user_id}]);
 
     } catch (error) {
       console.error(error);
