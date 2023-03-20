@@ -29,6 +29,7 @@ const Review = (props) => {
     setIsNewReview(true);
     setEditMode(true);
     setReviewAuthor(await getUser());
+    setIsAuthor(true);
   }
 
   const getUser = async() => {
