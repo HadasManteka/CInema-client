@@ -5,6 +5,7 @@ import SingleData from "../SingleData/SingleData";
 import "./SinglePage.css";
 import Myloader from "react-spinners/ClipLoader";
 import { unavailable } from "../../api/config/DefaultImages";
+import Review from "../../components/reviewBox/reviewBox";
 
 import $ from "jquery";
 
@@ -16,6 +17,7 @@ const SinglePage = () => {
     });
     const [content, setContent] = useState();
     const [similarMovies, setSimilarMovies] = useState();
+    const [reviewBoxArray, setReviewBoxArray] = useState([]);
     const [video, setVideo] = useState();
     const [isLoading, setIsLoading] = useState(false);
     // eslint-disable-next-line
@@ -56,11 +58,46 @@ const SinglePage = () => {
             console.error(error);
         }
     };
+    
+  const fetchReviews = async() => {
+    try {
+      console.log(id)
+      const { data } = await axios.get(`http://localhost:4000/getReviewByMovieId/${id}`);
+      data.map(async review => {
+        await addMovieReviewToArray(review.movie_id, review);
+      });
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+    const addMovieReviewToArray = async(movieId, review) => {
+        try {
+        //   const { data } = await axios.get(`http://localhost:4000/getMovieById/${id}`);
+        console.log(review)
+          setReviewBoxArray(reviewBoxArray => [...reviewBoxArray, {description: review.review, logo: "", movieId: id, id, reviewId: review._id, authorId: review.user_id}]);
+    
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      
+  const getReviewAuthor = async(id) => {
+    try {
+      const { data } = await axios.get(`http://localhost:4000/getUserById/${id}`);
+      return(data[0])
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
     useEffect(() => {
         window.scroll(0, 0);
 
         fetchData();
         fetchVideos();
+        fetchReviews();
 
         // eslint-disable-next-line
     }, [id, setContent]);
@@ -84,7 +121,7 @@ const SinglePage = () => {
 
                                 <div className="open__detailsPage">
                                     <h3>{content.name}
-                                        <b className="add_review_button" onClick={addReviewClick}>+</b>
+                                        <b className="add_review_button" onClick={addReviewClick}>+ Add Review</b>
                                     </h3>
                                     <div
                                         style={{
@@ -142,6 +179,14 @@ const SinglePage = () => {
                                                 RELEASE DATE: <span>{content.release_date.substring(0, 10)}</span>
                                             </li>
                                         </ul>
+                                        <div className="movieReviews">
+                                        {
+                                          reviewBoxArray.map((review) => {
+                                            return <Review logo={review.img} title={review.title} description={review.description} movieId={review.movieId} reviewId={review.reviewId} authorId={review.authorId}></Review>
+                                          })
+                                        }
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
