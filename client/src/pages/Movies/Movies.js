@@ -1,3 +1,4 @@
+import { Checkbox } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SingleData from "../../components/SingleData/SingleData";
@@ -8,9 +9,11 @@ const Movies = () => {
     const [page, setPage] = useState(1);
     const [numOfPages, setNumOfPages] = useState();
     const [searchTerm, setSearchTerm] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [rating, setRating] = useState(5);
+    const [sortBy, setSortBy] = useState(false);
+    const [lable, setLable] = useState("");
     // eslint-disable-next-line
-    const [color, setColor] = useState("grey");
 
     const chunkArray = (array, chunkSize) => {
         const results = [];
@@ -49,32 +52,66 @@ const Movies = () => {
         }
     };
 
-    // const fetchSearchApi = async () => {
-    //     if (searchTerm) {
-    //         const SEARCH_API = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}&page=${page}&sort_by=popularity.desc&page=2`;
-    //         const { data } = await axios.get(SEARCH_API);
-    //         setTreadingContent(data.results);
-    //         setNumOfPages(data.total_pages);
-    //         setIsLoading(true);
-    //     }
-    // };
+    const fetchSearchApi = async () => {
+        console.log(lable)
+        const SEARCH_API = `http://localhost:4000/getMoviesWithFilter/${rating}?sort=${sortBy}&searchString=${lable}`;
+        const { data } = await axios.get(SEARCH_API);
+        setTreadingContent(data);
+        setNumOfPages(data.total_pages);
+        setIsLoading(true);
+    };
 
+    const handleChange = (event) => {
+        setRating(event.target.value);
+    };
+
+    const handleChangeSoryBy = () => {
+        setSortBy(!sortBy);
+    };
+
+    const handleChangeLable = (event) => {
+        setLable(event.target.value);
+    }
     useEffect(() => {
         window.scroll(0, 0);
-        if (searchTerm) {
-            // fetchSearchApi();
-        } else {
-            fetchMovieApi();
-        }
+        fetchMovieApi();
         return () => {
             setTreadingContent();
         };
         // eslint-disable-next-line
     }, [page, isLoading]);
 
+    useEffect(() => {
+        fetchSearchApi();
+    }, [rating, sortBy, lable]);
+
     return (
         <main className="all__movies">
             <div className="spacer"></div>
+            <div className="filter">
+                <div className="filter_holder">
+                    <Checkbox onChange={handleChangeSoryBy} className="checkbox_filter"/>
+                    <label>Sort By Rating</label>
+                </div>
+                <div className="filter_holder">
+                    <select
+                        name="rating"
+                        id="rating"
+                        value={rating}
+                        onChange={handleChange}
+                        className="filter_obj"
+                    >
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                    <label htmlFor="rating">Rating above</label>
+                </div>
+                <div className="filter_holder">
+                    <input onChange={handleChangeLable}></input>
+                </div>
+            </div>
             <div className="ListContent">
                 <>{renderContent()}</>
             </div>

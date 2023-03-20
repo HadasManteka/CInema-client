@@ -7,3 +7,26 @@
 .spacer {
   height: 80px;
 }
+.filter_holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #d3a213;
+  border-radius: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  justify-content: space-evenly;
+}
+.filter {
+  width: 235px;
+  height: 250px;
+  margin-left: 60px;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: #ffc107;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
