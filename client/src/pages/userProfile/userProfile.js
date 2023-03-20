@@ -81,9 +81,7 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <>
-    <MainNav />
-    
+    <>    
     {isLoading ? (
         <div className="major" style={{ height: "600px" }}>
           <Myloader color={color} size={60} />

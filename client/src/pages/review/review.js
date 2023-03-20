@@ -128,7 +128,6 @@ const Review = (props) => {
 
   return (
     <>
-    <MainNav />
     {isLoading ? (
       <>
         <div>
