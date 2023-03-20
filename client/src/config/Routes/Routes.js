@@ -12,7 +12,7 @@ import {AuthContext} from "../../components/context/UserContext";
 import React, {useContext} from "react";
 
 const Routes = () => {
-  const {isAdmin} = useContext(AuthContext);
+  const {isAdmin, getCurrentUser} = useContext(AuthContext);
 
   return (
     <>
@@ -29,8 +29,15 @@ const Routes = () => {
           <Route path="/movie/:id" children={<SinglePage />} />
           
           {isAdmin ? 
-          <Route path="/Statistics" component={MovieGraph} /> : <Redirect to="/error" />
+          <Route path="/Statistics" component={MovieGraph} /> 
+          :
+           <Redirect to="/error" />
           }
+
+        {getCurrentUser() != null ?
+        <Route path="/userProfile" component={UserProfile} /> : 
+        <Redirect to="/error" />
+        }
           <Redirect to="/error" />
         </Switch>
       </div>

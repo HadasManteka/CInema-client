@@ -81,7 +81,8 @@ const MainNav = () => {
                 Statistics
               </Link>
             </li> : <div/>
-}
+            }
+            
             <li className="nav-item  nav__link">
               <Link className="nav-link" to="/all-movies">
                 <img
@@ -95,12 +96,15 @@ const MainNav = () => {
                 />
                 Movies
               </Link>
-            </li>
+            </li> 
+            
+            { getUser() != null ?
             <li className="nav-item  nav__link">
               <Link className="nav-link" to="/userProfile">
                 <PersonOutlineIcon></PersonOutlineIcon> User Profile
               </Link>
-            </li>
+            </li> : <div/>
+            }
           </ul>
 
           {
