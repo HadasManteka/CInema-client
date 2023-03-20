@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, } from 'firebase/auth';
+import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, deleteUser} from 'firebase/auth';
 import app from '../Authetication/firebase.config';
 import uuid from 'react-uuid';
 
@@ -36,6 +36,10 @@ const UserContext = ({children}) => {
     const getCurrentUser=()=> {
         return auth.currentUser;
     }
+    
+    const deleteUserFromFB=()=> {
+        auth.currentUser.delete();
+    }
 
     //why are we doing this?
     useEffect(() =>{
@@ -49,7 +53,7 @@ const UserContext = ({children}) => {
         }
     }, [])
 
-    const authInfo = {loading, isAdmin, setAdmin, getCurrentUser, createUser, signIn, logOut, signInWithGoogle, signUpWithGoogle}
+    const authInfo = {loading, isAdmin, setAdmin, getCurrentUser, createUser, deleteUserFromFB, signIn, logOut, signInWithGoogle, signUpWithGoogle}
 
     return (
         <AuthContext.Provider key="authContext" value={authInfo}>

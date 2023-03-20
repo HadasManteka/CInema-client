@@ -12,7 +12,7 @@ const UserProfile = () => {
   const [editMode, setEditMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [reviewBoxArray, setReviewBoxArray] = useState([]);
-  const {getCurrentUser} = useContext(AuthContext);
+  const {getCurrentUser, setAdmin, logOut, deleteUserFromFB} = useContext(AuthContext);
   let [color, setColor] = useState("grey");
   let newFirstName = user.first_name;
   let newEmail = user.email;
@@ -68,6 +68,30 @@ const UserProfile = () => {
     }
   }
 
+  const disconnect = () => {
+    axios.post("http://localhost:4000/logout" + '?userId=' + getCurrentUser?.uid)
+    logOut();
+    setAdmin(false);
+  }
+  
+  const deleteUser = async () => {
+    setEditMode(false);
+
+    try {
+        await axios.delete(`http://localhost:4000/deleteUserByEmail/${user.email}`).then(res => {
+          // setUser(res.data);
+          disconnect();
+          deleteUserFromFB();
+          history.push("/login");
+          console.log(res);
+        })
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+          history.replace("/error");
+      }
+    }
+  }
+
   const history = useHistory()
   
   const navigateHome = () => {
@@ -99,6 +123,7 @@ const UserProfile = () => {
                 <textarea rows={1} className="userFirstName_edit" placeholder={user.first_name} onChange={(e) => {newFirstName = (e.target.value)}}></textarea>
                 <textarea className="userEmail_edit" placeholder={user.email} onChange={(e) => {newEmail = (e.target.value)}}></textarea>
                 <button className="editButton" onClick={onSaveUser}>Save User</button>
+                <button className="deleteButton" onClick={deleteUser}>Delete User</button>
               </div>) 
           }
         </div>
