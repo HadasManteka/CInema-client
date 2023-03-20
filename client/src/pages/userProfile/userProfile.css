@@ -2,9 +2,15 @@
     padding-top: 80px;
     display:flex;
     flex-direction:row;
+    /* flex-wrap: wrap; */
+    /* flex-basis: 90%; */
 }
 
 .user_details {
+    z-index: 1000;
+    z-index: 1000;
+    margin: 50px 0;
+    margin-right: 50px;
     width: 500px;
     height: 650px;
     margin-left: 200px;
