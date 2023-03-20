@@ -121,7 +121,7 @@ const SinglePage = () => {
 
                                 <div className="open__detailsPage">
                                     <h3>{content.name}
-                                        <b className="add_review_button" onClick={addReviewClick}>+</b>
+                                        <b className="add_review_button" onClick={addReviewClick}>+ Add Review</b>
                                     </h3>
                                     <div
                                         style={{
