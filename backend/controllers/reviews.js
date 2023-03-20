@@ -15,6 +15,10 @@ const getReviewByUserId = async (user_id) => {
     return await Review.find({ user_id });
 };
 
+const deleteReviewsByUserEmail = async (email) => {
+    return await Review.deleteMany({ "email":email });
+};
+
 const getReviewByMovieId = async (movie_id) => {
     return await Review.find({ movie_id });
 };
@@ -43,5 +47,6 @@ module.exports = {
     getReviewByMovieId,
     updateReview,
     createReview,
-    deleteReview
+    deleteReview,
+    deleteReviewsByUserEmail
 }

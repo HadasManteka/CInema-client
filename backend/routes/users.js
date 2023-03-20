@@ -1,5 +1,6 @@
 var express = require('express');
 const UserController = require('../controllers/users');
+const reviewController = require('../controllers/reviews');
 var router = express.Router();
 
 router.get('/getUsers', (req, res) => {
@@ -23,6 +24,17 @@ router.get('/getUserByEmail/:email', (req, res) => {
     const email = req.params.email;
     UserController.getUserByEmail(email).then(user => {
         res.send(user);
+    }).catch(error => {
+        res.status(500).send({error: error.message});
+    });
+});
+
+router.delete('/deleteUserByEmail/:email', (req, res) => {
+    const email = req.params.email;
+    UserController.deleteUserByEmail(email).then(user => {
+        reviewController.deleteReviewsByUserEmail(email).then(r => {
+            res.status(200).send();
+        })
     }).catch(error => {
         res.status(500).send({error: error.message});
     });

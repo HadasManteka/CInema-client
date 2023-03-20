@@ -15,6 +15,10 @@ const getUserByEmail = async (email) => {
     return await User.find({"email":email});
 };
 
+const deleteUserByEmail = async (email) => {
+    return await User.findOneAndDelete({"email":email});
+};
+
 const updateUser = async (user) => {
     const filter = { _id: user.id };
     const update = { ...user };
@@ -33,5 +37,6 @@ module.exports = {
     getUserById,
     updateUser, 
     createUser,
-    getUserByEmail
+    getUserByEmail,
+    deleteUserByEmail
 }

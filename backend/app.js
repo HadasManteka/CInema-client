@@ -4,7 +4,6 @@ const cors = require('cors');
 const { parse } = require("url")
 const { WebSocketServer } = require('ws');
 const mongoose = require("mongoose");
-const { randomUUID } = require("crypto");
 mongoose.connect("mongodb+srv://movies-atlas-db:yjP8NyM9kh4GX7H@cluster0.kdvj33y.mongodb.net/?retryWrites=true&w=majority")
 
 app.use(express.json());
