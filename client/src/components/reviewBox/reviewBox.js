@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 const ReviewBox = (props) => {
   const {getCurrentUser, isAdmin} = useContext(AuthContext);
   const [autour, setAutour] = useState({});
-  const [isAuthour, setIsAuthour] = useState({});
+  const [isAuthour, setIsAuthour] = useState(false);
   const history = useHistory()
 
   const navigateReview = (editMode) => {
@@ -26,6 +26,7 @@ const ReviewBox = (props) => {
       return data;
     } catch (error) {
       if (error.response && error.response.status === 404) {
+        setIsAuthour(false);
           history.replace("/error");
       }
     }

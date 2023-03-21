@@ -70,6 +70,10 @@ const SinglePage = () => {
     }
   }
 
+  const navigateLogin = () => {
+    history.push('/login');
+  }
+
     const addMovieReviewToArray = async(movieId, review) => {
         try {
         //   const { data } = await axios.get(`http://localhost:4000/getMovieById/${id}`);
@@ -111,7 +115,8 @@ const SinglePage = () => {
                                 <div className="open__detailsPage">
                                     <h3>{content.name}
                                     {
-                                        (getCurrentUser()) ? (<b className="add_review_button" onClick={addReviewClick}>+ Add Review</b>) : (<></>)
+                                        (getCurrentUser()) ? (<b className="add_review_button" onClick={addReviewClick}>+ Add Review</b>) : 
+                                        (<b className="add_review_button" onClick={navigateLogin}> Connect to add a review</b>)
                                     }
                                         
                                     </h3>
