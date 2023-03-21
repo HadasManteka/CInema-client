@@ -1,6 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { AuthContext } from "../../components/context/UserContext";
+import SingleData from "../SingleData/SingleData";
 import "./SinglePage.css";
 import Myloader from "react-spinners/ClipLoader";
 import Review from "../../components/reviewBox/reviewBox";
@@ -16,6 +18,7 @@ const SinglePage = () => {
     const [content, setContent] = useState();
     const [reviewBoxArray, setReviewBoxArray] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const {getCurrentUser} = useContext(AuthContext);
     // eslint-disable-next-line
     const [color, setColor] = useState("grey");
     const history = useHistory();
@@ -107,7 +110,10 @@ const SinglePage = () => {
 
                                 <div className="open__detailsPage">
                                     <h3>{content.name}
-                                        <b className="add_review_button" onClick={addReviewClick}>+ Add Review</b>
+                                    {
+                                        (getCurrentUser()) ? (<b className="add_review_button" onClick={addReviewClick}>+ Add Review</b>) : (<></>)
+                                    }
+                                        
                                     </h3>
                                     <div
                                         style={{
