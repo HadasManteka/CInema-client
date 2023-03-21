@@ -5,13 +5,13 @@
     margin-left: 60px;
 }
 .spacer {
-  height: 80px;
+  height: 65px;
 }
 .filter_holder {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #d3a213;
+  background-color: #dbc9f8;
   border-radius: 20px;
   padding-bottom: 10px;
   padding-top: 10px;
@@ -24,8 +24,8 @@
   height: 250px;
   margin-left: 60px;
   border-radius: 20px;
-  padding: 20px;
-  background-color: #ffc107;
+  padding: 12px;
+  background-color: #b69be1;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

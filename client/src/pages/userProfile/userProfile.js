@@ -1,7 +1,6 @@
 import "./userProfile.css";
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import MainNav from "../../components/MainNavbar/MainNav";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../components/context/UserContext";
 import Review from "../../components/reviewBox/reviewBox";
