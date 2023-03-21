@@ -7,7 +7,7 @@ import { AuthContext } from "../../components/context/UserContext";
 import { useHistory } from "react-router-dom";
 
 const ReviewBox = (props) => {
-  const {getCurrentUser} = useContext(AuthContext);
+  const {getCurrentUser, isAdmin} = useContext(AuthContext);
   const [autour, setAutour] = useState({});
   const [isAuthour, setIsAuthour] = useState({});
   const history = useHistory()
@@ -64,7 +64,7 @@ const ReviewBox = (props) => {
                 }
             </div>
             {
-              (isAuthour) ? 
+              (isAuthour || isAdmin) ? 
                 (<div className="autour_boxes">
                   <div className="review_box_button" onClick={() => navigateReview(true)}><ModeEditIcon></ModeEditIcon></div>
                   <div className="review_box_button" onClick={deleteReview}><DeleteForeverIcon></DeleteForeverIcon></div>
