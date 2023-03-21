@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="col-fot1">
             <Heading />
             <div className="footer__details">
-              <p>Cinemy Movies and Tv Series</p>
+              <p>Cinemy Movies</p>
               <p>The College Of Management, Israel</p>
               <p>
                 call Us: <span>(+972) 534223266</span>
