@@ -20,32 +20,32 @@
 
 .description {
     margin-left: 5%;
+    display: flex;
+    flex-flow: column wrap;
 }
 
 .movie_title {
-    position: absolute;
-    float: left;
-    width: max-content;
-    float: right;
+    width: max-content; 
     color: white;
     font-size: 2vw;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .movie_description {
-    position: absolute;
     inline-size: 60%;
     overflow-wrap: break-word;
-    margin-top: 4rem;
+    margin-top: 15px;
     color: #ffffffd7;
     font-size: 1.1rem;
     text-align: left;
+    margin-right: 5%;
+    width: 90%;
 }
 
 .autour_boxes {
     float: right;
     margin-left: auto;
-    margin-right: 10%;
+    margin-right: 8%;
     margin-top: 5%;
 }
 
