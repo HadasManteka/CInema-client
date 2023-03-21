@@ -1,0 +1,33 @@
+.ListContentRow {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 60px;
+    margin-left: 60px;
+}
+.spacer {
+  height: 65px;
+}
+.filter_holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #dbc9f8;
+  border-radius: 20px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  padding-left: 20px;
+  padding-right: 20px;
+  justify-content: space-evenly;
+}
+.filter {
+  width: 230px;
+  height: 180px;
+  margin-left: 60px;
+  border-radius: 20px;
+  padding-left: 13px;
+  padding-right: 13px;
+  background-color: #b69be1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}

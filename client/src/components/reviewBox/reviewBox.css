@@ -1,0 +1,63 @@
+.review__main {
+    margin-top: 1%;
+    cursor: pointer;
+    padding-bottom: 2%;
+    border-bottom: rgba(255, 255, 255, 0.289) 1px solid;
+}
+
+.review_row {
+    display:flex;
+    flex-direction:row;
+    padding: 0.5%;
+}
+
+.movie_logo {
+    margin-left: 1%;
+    width: 8rem;
+    height: fit-content;
+    border-radius: 20%;
+}
+
+.description {
+    margin-left: 5%;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.movie_title {
+    width: max-content; 
+    color: white;
+    font-size: 2vw;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.movie_description {
+    inline-size: 60%;
+    overflow-wrap: break-word;
+    margin-top: 15px;
+    color: #ffffffd7;
+    font-size: 1.1rem;
+    text-align: left;
+    margin-right: 5%;
+    width: 90%;
+}
+
+.autour_boxes {
+    float: right;
+    margin-left: auto;
+    margin-right: 8%;
+    margin-top: 5%;
+}
+
+.review_box_button {
+    color: #fff;
+    padding: 0.3%;
+    margin-top: 40%;
+}
+
+.review_box_button:hover {
+    border-radius: 10%;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.068);
+    box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+}
