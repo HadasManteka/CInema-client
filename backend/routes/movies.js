@@ -57,5 +57,22 @@ router.post('/createMovie', (req, res) => {
     });
 });
 
+router.get('/getMoviesWithFilter/:rating', (req, res) => {
+    let rating = parseFloat(req.params.rating);
+    const searchString = req.query.searchString || '';
+    const sort = req.query.sort === 'true';
+
+    if (isNaN(rating)) {
+        rating = 0;
+    }
+
+    MovieController.getMoviesWithFilter(rating, searchString, sort)
+        .then(movies => {
+            res.send(movies);
+        })
+        .catch(error => {
+            res.status(500).send({ error: error.message });
+        });
+});
     
 module.exports = router;

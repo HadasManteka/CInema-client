@@ -5,7 +5,6 @@ import { AuthContext } from "../../components/context/UserContext";
 import SingleData from "../SingleData/SingleData";
 import "./SinglePage.css";
 import Myloader from "react-spinners/ClipLoader";
-import { unavailable } from "../../api/config/DefaultImages";
 import Review from "../../components/reviewBox/reviewBox";
 
 import $ from "jquery";
@@ -17,9 +16,7 @@ const SinglePage = () => {
         });
     });
     const [content, setContent] = useState();
-    const [similarMovies, setSimilarMovies] = useState();
     const [reviewBoxArray, setReviewBoxArray] = useState([]);
-    const [video, setVideo] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const {getCurrentUser} = useContext(AuthContext);
     // eslint-disable-next-line
@@ -53,7 +50,6 @@ const SinglePage = () => {
     const fetchVideos = async () => {
         try {
             const { data } = await axios.get(`https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}`);
-            setVideo(data.results[0].key);
             setIsLoading(true);
             // eslint-disable-next-line
         } catch (error) {
@@ -83,16 +79,7 @@ const SinglePage = () => {
         } catch (error) {
           console.error(error);
         }
-      }
-      
-  const getReviewAuthor = async(id) => {
-    try {
-      const { data } = await axios.get(`http://localhost:4000/getUserById/${id}`);
-      return(data[0])
-    } catch (error) {
-      console.error(error);
     }
-  }
 
     useEffect(() => {
         window.scroll(0, 0);

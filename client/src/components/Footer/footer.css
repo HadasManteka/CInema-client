@@ -24,7 +24,7 @@
 }
 .footer__container__row {
   display: flex !important;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center !important;
   flex-wrap: wrap;
   padding: 30px 30px !important;

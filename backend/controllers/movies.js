@@ -11,11 +11,26 @@ const getTopRatedMovies = async () => {
     return await Movie.find(
       {},
       "id img_url name release_date rating description trailer_url"
-    ).sort({ rating: -1 }); // Sort by rating in descending order
+    ).sort({ rating: -1 });
 };
 
 const getMovieById = async (id) => {
     return await Movie.findById(id);
+};
+
+const getMoviesWithFilter = async (rating, searchString = '', sort = false) => {
+    const searchRegex = new RegExp(searchString, 'i');
+
+    let query = Movie.find({
+        rating: { $gt: rating },
+        name: { $regex: searchRegex },
+    });
+
+    if (sort) {
+        query = query.sort({ rating: -1 });
+    }
+
+    return await query.exec();
 };
 
 const updateMovie = async (user) => {
@@ -71,5 +86,6 @@ module.exports = {
     updateMovie,
     getMoviesGroupedByYear,
     getAverageReviewRatingsByMovie,
-    createMovie
+    createMovie,
+    getMoviesWithFilter
 }
