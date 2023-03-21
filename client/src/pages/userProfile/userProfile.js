@@ -121,7 +121,6 @@ const UserProfile = () => {
               </div>) :
               (<div>
                 <textarea rows={1} className="userFirstName_edit" placeholder={user.first_name} onChange={(e) => {newFirstName = (e.target.value)}}></textarea>
-                <textarea className="userEmail_edit" placeholder={user.email} onChange={(e) => {newEmail = (e.target.value)}}></textarea>
                 <button className="editButton" onClick={onSaveUser}>Save User</button>
                 <button className="deleteButton" onClick={deleteUser}>Delete User</button>
               </div>) 

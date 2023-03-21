@@ -1,13 +1,15 @@
 import "./reviewBox.css";
 import axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import { AuthContext } from "../../components/context/UserContext";
 import { useHistory } from "react-router-dom";
 
 const ReviewBox = (props) => {
+  const {getCurrentUser} = useContext(AuthContext);
   const [autour, setAutour] = useState({});
-
+  const [isAuthour, setIsAuthour] = useState({});
   const history = useHistory()
 
   const navigateReview = (editMode) => {
@@ -19,7 +21,8 @@ const ReviewBox = (props) => {
     try {
       const { data } = await axios.get(`http://localhost:4000/getUserById/${id}`);
       setAutour(data);
-      console.log(data)
+      setIsAuthour(getCurrentUser().email === data.email);
+      console.log("authour " + (getCurrentUser().email === data.email))
       return data;
     } catch (error) {
       if (error.response && error.response.status === 404) {
@@ -61,7 +64,7 @@ const ReviewBox = (props) => {
                 }
             </div>
             {
-              (autour) ? 
+              (isAuthour) ? 
                 (<div className="autour_boxes">
                   <div className="review_box_button" onClick={() => navigateReview(true)}><ModeEditIcon></ModeEditIcon></div>
                   <div className="review_box_button" onClick={deleteReview}><DeleteForeverIcon></DeleteForeverIcon></div>
